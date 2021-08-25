@@ -1,0 +1,295 @@
+.select2-container {
+    width: 100% !important;
+}
+.close{
+    opacity: 100% !important;
+    color: black !important;
+    font-size: 30px !important;
+}
+.table th{
+    color: white !important;
+}
+.table th, .table td{
+    padding: 1rem !important;
+}
+.required label:first-child::after{
+    content: '*';
+    color: #dc3545;
+}
+/* .dt-card{
+    height: 100vh !important;
+} */
+.swal2-popup.swal2-toast .swal2-title {
+    font-size: 15px !important;
+}
+.swal2-popup.swal2-toast .swal2-success {
+    font-size: 15px !important;
+}
+.swal2-popup.swal2-modal.swal2-icon-warning.swal2-show {
+    width: 500px !important;
+    padding: 20px !important;
+}
+.swal2-popup.swal2-modal.swal2-icon-error.swal2-show {
+    width: 500px !important;
+    padding: 20px !important;
+}
+.swal2-popup.swal2-modal.swal2-icon-success.swal2-show {
+    width: 500px !important;
+    padding: 20px !important;
+}
+div#swal2-html-container {
+    font-size: 18px !important;
+}
+
+#dataTable .custom-control-input:checked ~ .custom-control-label::before{
+    color: white !important;
+    border-color: #f5282c !important;
+    background-color: #f75e22 !important;
+    box-shadow: none !important;
+}
+div.dt-button-collection.dropdown-menu{
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: column !important;
+    background-color: #fa8c16 !important;
+}
+.dt-button.dropdown-item.button-columnVisibility.active{
+    color:white !important;
+}
+.dt-button.dropdown-item.active{
+    background-color: #fa8c16 !important;
+}
+
+.dt-button.dropdown-item.button-columnVisibility{
+    color: black !important;
+    padding: 5px 10px !important;
+}
+.dataTables_processing{
+    position: absolute;
+    top: 100px !important;
+    left: 50% !important;
+}
+.mr-10{
+    margin-right: 10px !important;
+}
+.ml-10{
+    margin-left: 10px !important;
+}
+.dt-buttons .btn-secondary{
+    margin-left: 5px !important;
+    margin-bottom: 5px !important;
+}
+.dt-buttons .btn-secondary:last-child{
+    margin-right: 0 !important;
+}
+#save-btn{
+    width: 90px;
+}
+.kt-spinner{position: relative;}
+.kt-spinner::before{
+    content: '';
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    top:50%;
+    left:2px;
+    border-radius: 50%;
+}
+.kt-spinner::before{
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+
+}
+.kt-spinner::before{
+    -webkit-animation: kt-spinner .5s linear infinite;
+    animation: kt-spinner .5s linear infinite;
+}
+.kt-spinner.kt-spinner--light::before{
+    border: 2px solid #fff;
+    border-right: 2px solid transparent;
+}
+@-webkit-keyframes kt-spinner{
+    to{
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes kt-spinner{
+    to{
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.btn-light,.btn-light:hover{
+    color: #545454;
+    background-color: #fff;
+    border-color: #ced4da;
+}
+.dropdown-item{cursor: pointer !important;}
+.dropdown-item.active,.dropdown-item:active{
+    color: #fff !important;
+    background-color: #fa8c16 !important;
+}
+
+/* Menu Builder */
+
+.menu-builder .dd{
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    max-width: inherit;
+    list-style: none;
+    font-size: 13px;
+    line-height: 20px;
+}
+.menu-builder .dd .item_action{
+    z-index: 10;
+    position: relative;
+    top: 9px;
+    right: 10px;
+}
+.menu-builder .dd .item_action .edit{
+    margin-right: 5px;
+}
+.menu-builder .dd-handle{
+    display: block;
+    height: 50px;
+    margin: 5px 0;
+    padding: 14px 25px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.pt-24{
+    padding-top: 24px !important;
+}
+.btn-secondary{
+    color: white !important;
+}
+.was-validated .form-control:invalid, .form-control.is-invalid {
+    padding-right: 0 !important;
+}
+
+/* ================= Permissin Tree ==================== */
+#permission.tree, #permission.tree ul {
+    margin:0 !important;
+    padding:0 !important;
+    list-style:none !important;
+}
+#permission.tree ul {
+    margin-left:0.5em !important;
+    position:relative;
+}
+#permission.tree ul ul {
+    margin-left:.5em;
+}
+#permission.tree ul:before {
+    content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    border-left:3px solid;
+}
+#permission.tree li {
+    margin:0 0 10px 0;
+    padding: 1rem 0 1rem 1em;
+    line-height:2em;
+    font-weight:700;
+    position:relative;
+    border-left: 2px solid #038fde;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+#permission.tree li:hover{
+    box-shadow: none !important;
+}
+#permission.tree li li{
+    margin:0;
+    padding: 0 0 0 1em;
+    line-height:2em;
+    font-weight:700;
+    position:relative;
+    border-left: 0;
+    box-shadow: none !important;
+}
+#permission.tree ul li:before {
+    content:"";
+    display:block;
+    width:10px;
+    height:0;
+    border-top:1px solid;
+    margin-top:-1px;
+    position:absolute;
+    top:1em;
+    left:0
+}
+#permission.tree ul li:last-child:before {
+    background:#fff;
+    height:auto;
+    top:1em;
+    bottom:0
+}
+.indicator {
+    margin-right:5px;
+}
+
+#permission.tree li button,
+#permission.tree li button:active,
+#permission.tree li button:focus {
+    text-decoration: none;
+    border:none;
+    background:transparent;
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    outline: 0;
+}
+
+#permission.tree li .indicator{
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    color: #038fde;
+    font-size: 18px;
+    float: right;
+    line-height: 30px;
+    cursor: pointer;
+}
+#permission.tree li li .indicator{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    color: #038fde;
+    font-size: 18px;
+    float: right;
+    line-height: 30px;
+    cursor: pointer;
+}
+#permission.tree li input[type="checkbox"]{
+    margin-right: 10px;
+}
+
+.table{
+    width: 100% !important;
+}
+#save_btn, #update_btn,#mail_save_btn,#general_save_btn{
+    padding: 9px 30px
+}
+div#bs-select-2 {
+    max-height: 160px !important;
+}
+div#bs-select-1 {
+    max-height: 200px !important;
+}
+
+
