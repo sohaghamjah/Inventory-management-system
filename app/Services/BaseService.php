@@ -2,6 +2,7 @@
 namespace App\Services;
 
 class BaseService{
+
     protected function datatableDraw($draw, $recordsTotal, $recordsFiltered, $data){
         return array(
             "draw" => $draw,
@@ -10,4 +11,5 @@ class BaseService{
             "data"            => $data,
         );
     }
+    
 }

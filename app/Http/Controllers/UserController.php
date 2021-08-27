@@ -158,11 +158,15 @@ class UserController extends BaseController
 
     public function changeStatus(Request $request){
         if($request->ajax()){
-            $result = $this->service->changeStatus($request);
-            if($result){
-                return $this->responseJson($status='success',$message="Status changed successfull",$data=null,$response_code=200);
+            if(permission('user-edit')){
+                $result = $this->service->changeStatus($request);
+                if($result){
+                    return $this->responseJson($status='success',$message="Status changed successfull",$data=null,$response_code=200);
+                }else{
+                    return $this->responseJson($status='error',$message='Faield to change status',$data=null,$response_code=204);
+                }
             }else{
-                return $this->responseJson($status='error',$message='Faield to change status',$data=null,$response_code=204);
+                return $this->responseJson($status='error',$message='Unauthorized access blocked',$data=null,$response_code=401);
             }
         }else{
             return $this->responseJson($status='error',$message=null,$data=null,$response_code=401);

@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseRepositories{
     // =============== Datatable Default option set property===============
+
     protected $model;
     protected $column_order;
 
@@ -15,7 +16,7 @@ class BaseRepositories{
 
     public function __construct(Model $model)
     {
-        $this->model = $model;
+        $this->model = $model; 
     }
 
     /**
