@@ -1,6 +1,7 @@
 <?php
 define('USER_AVATAR_PATH', 'user/');
 define('LOGO_PATH', 'logo/');
+define('BRAND_IMAGE_PATH', 'brand/');
 define('DATE_FORMATE', date('d M, Y'));
 define('STATUS', ['1' => 'Active', '2' => 'Inactive']);
 define('GENDER', ['1' => 'Male', '2' => 'Female']);
@@ -49,6 +50,12 @@ if(!function_exists('tableCheckBox')){
 
 if(!function_exists('changeStatus')){
     function changeStatus (int $id,int $status,string $name = null){
-        return $status == 1 ? '<span class="badge badge-success change_status" data-status="2" data-name="'.$name.'" data-id="'.$id.'" style="cursor: pointer">Active</span>' :'<span class="badge badge-danger change_status" data-status="1" data-name="'.$name.'" data-id="'.$id.'" style="cursor: pointer">Iactive</span>';
+        return $status == 1 ? '<span class="badge badge-success change_status" data-status="2" data-name="'.$name.'" data-id="'.$id.'" style="cursor: pointer">Active</span>' :'<span class="badge badge-danger change_status" data-status="1" data-name="'.$name.'" data-id="'.$id.'" style="cursor: pointer">Inactive</span>';
+    }
+}
+
+if(!function_exists('tableImage')){
+    function tableImage ($image = null,$path,string $name = null){
+        return $image ? "<img src='storage/".$path.$image."' alt='".$name."' style='width: 60px'>" : "<img src='images/default.jpg' alt='Default Image' style='width: 60px'>";
     }
 }

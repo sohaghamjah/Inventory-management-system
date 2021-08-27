@@ -85,7 +85,7 @@ class UserService extends BaseService{
         if($user->avatar){
             return "<img src='storage/'".USER_AVATAR_PATH.$user->avatar." style='width: 50px'>";
         }else{
-            return "<img src='images/".($user->gender == 1 ? 'male-persion' : 'female-persion').".jpg' style='width: 50px'>";
+            return "<img src='images/".($user->gender == 1 ? 'male' : 'female').".svg' style='width: 50px'>";
         }
     }
 
