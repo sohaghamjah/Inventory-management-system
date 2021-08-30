@@ -165,6 +165,43 @@ function bulkDelete(ids,url,table,rows){
     });
 }
 
+// ============= Change Status ===================
+
+function changeStatus(id,status,name,table,url){
+    Swal.fire({
+        title: 'Are you sure to Change '+name+' status?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Change status!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    id: id,
+                    status: status,
+                    _token: _token,
+                },
+                dataType: "json",
+            }).done(function(response){
+                if(response.status == 'success'){
+                    swal.fire('Changed',response.message,"success").then(function(){
+                        table.ajax.reload(null,false);
+                    });
+                }
+                if(response.status == 'error'){
+                    swal.fire('Ooops...',response.message, response.status);
+                }
+            }).fail(function(){
+                swal.fire('Ooops...',"Something went wrong!", "error");
+            });
+        }
+    });
+}
+
 // ================= flashMessage ====================
 function notification(status, message) {
     const Toast = Swal.mixin({

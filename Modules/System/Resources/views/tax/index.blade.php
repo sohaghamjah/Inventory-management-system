@@ -113,7 +113,7 @@
             "responsive": true, //Make table responsive in mobile device
             "bInfo": true, //TO show the total number of data
             "bFilter": false, //For datatable default search box show/hide
-            "lengthCategory": [
+            "lengthMenu": [
                 [5, 10, 15, 25, 50, 100, 1000, 10000, -1],
                 [5, 10, 15, 25, 50, 100, 1000, 10000, "All"]
             ],

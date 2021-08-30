@@ -2,10 +2,11 @@
 
 namespace Modules\System\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequest;
 
 class WarehouseFormRequest extends FormRequest
 {
+    protected $rules = [];
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,9 +14,16 @@ class WarehouseFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        $this->rules['name'] = ['required','string','unique:warehouses,name'];
+        $this->rules['phone'] = ['nullable','string','unique:warehouses,phone'];
+        $this->rules['email'] = ['nullable','email','unique:warehouses,email'];
+        $this->rules['address'] = ['nullable','string'];
+        if(request()->update_id){
+            $this->rules['name'][2] ='unique:warehouses,name,'.request()->update_id;
+            $this->rules['phone'][2] ='unique:warehouses,phone,'.request()->update_id;
+            $this->rules['email'][2] ='unique:warehouses,email,'.request()->update_id;
+        }
+        return $this->rules;
     }
 
     /**

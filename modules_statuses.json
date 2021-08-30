@@ -1,5 +1,7 @@
 {
     "Base": true,
     "Category": true,
-    "System": true
+    "System": true,
+    "Supplier": true,
+    "Customer": true
 }

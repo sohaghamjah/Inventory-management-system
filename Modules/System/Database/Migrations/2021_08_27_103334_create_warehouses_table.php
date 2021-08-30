@@ -15,7 +15,13 @@ class CreateWarehousesTable extends Migration
     {
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name',100)->unique();
+            $table->string('phone',14)->nullable()->unique();
+            $table->string('email',50)->nullable();
+            $table->text('address')->nullable();
+            $table->enum('status', ['1','2'])->default(1)->comment="1=active,2=inactive";
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -46,16 +46,16 @@ class BaseController extends Controller
     }
 
     protected function storeMessage($result, $update_id=null){
-        return $result ? ['status'=>'success', 'message'=>!empty($update_id) ? 'Data has been updated successfully' : 'Data has been saved successfully'] : ['status'=>'error', 'message'=>!empty($update_id) ? 'Faild to updated data' : 'Failed to saved data'];
+        return $result ? ['status'=>'success', 'message'=>!empty($update_id) ? 'Data has been updated successfull' : 'Data has been saved successfull'] : ['status'=>'error', 'message'=>!empty($update_id) ? 'Faild to updated data' : 'Failed to saved data'];
     }
 
     protected function deleteMessage($result){
-        return $result ? ['status'=>'success', 'message'=>'Data has been deleted successfully'] : ['status'=>'eroor', 'message'=>'Failed to delete data'];
+        return $result ? ['status'=>'success', 'message'=>'Data has been deleted successfull'] : ['status'=>'eroor', 'message'=>'Failed to delete data'];
     }
 
     protected function bulkDeleteMessage($result)
     {
-        return $result ? ['status'=>'success','message'=> 'Selected data has been deleted successfully']
+        return $result ? ['status'=>'success','message'=> 'Selected data has been deleted successfull']
         : ['status'=>'error','message'=> 'Failed to delete selected data'];
     }
 
