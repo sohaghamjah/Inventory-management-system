@@ -13,8 +13,7 @@
                     </li>
                   @else
                     <li class="dt-side-nav__item {{ request()->is($menu -> url) ? 'selected' : '' }}">
-                      <a href="{{ url($menu -> url) }}" class="dt-side-nav__link {{ request()->is($menu -> url) ? 'active' : '' }}" title="{{ $menu -> module_name }}"> <i
-                              class="{{ $menu -> icon_class }}"></i>
+                      <a href="{{ $menu->url ? url($menu -> url) : 'javascript:void();' }}" class="dt-side-nav__link {{ request()->is($menu -> url) ? 'active' : '' }}" title="{{ $menu -> module_name }}"> <i class="{{ $menu -> icon_class }}"></i>
                           <span class="dt-side-nav__text">{{ $menu -> module_name }}</span> </a>
                     </li>
                   @endif
@@ -32,7 +31,7 @@
                     <ul class="dt-side-nav__sub-menu">
                       @foreach ($menu -> children as $submenu)
                         <li class="dt-side-nav__item {{ request()->is($submenu -> url) ? 'selected' : '' }}">
-                            <a href="{{ url($submenu -> url) }}" class="dt-side-nav__link {{ request()->is($submenu -> url) ? 'active' : '' }}" title="Crypto"> <i
+                            <a href="{{ $submenu->url ? url($submenu -> url) : 'javascript:void();' }}" class="dt-side-nav__link {{ request()->is($submenu -> url) ? 'active' : '' }}" title="Crypto"> <i
                                     class="{{ $submenu -> icon_class }}"></i>
                                 <span class="dt-side-nav__text">{{ $submenu -> module_name }}</span> </a>
                         </li>  

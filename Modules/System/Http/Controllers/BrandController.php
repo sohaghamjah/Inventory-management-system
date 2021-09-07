@@ -121,7 +121,7 @@ class BrandController extends BaseController
      */
     public function edit(Request $request){
         if($request->ajax()){
-            if(permission('brand-add')){
+            if(permission('brand-edit')){
                 $data = $this->model->findOrFail($request->id);
                 $output = $this->dataMessage($data);
             }else{

@@ -71,6 +71,7 @@
 @include('menu.modal')
 @endsection
 @push('script')
+
 <script>
     // Darg and drop menu order
     $(function (){

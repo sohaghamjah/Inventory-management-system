@@ -8,10 +8,10 @@ class Brand extends BaseModel
 {
     protected $fillable = ['name','image','status','created_bu','updated_by'];
 
-    public $name;
+    public $_name;
 
     public function setName($name){
-        $this->name = $name;
+        $this->_name = $name;
     }
 
     // user list query
@@ -27,8 +27,8 @@ class Brand extends BaseModel
         $query = self::toBase();
 
         // Menu data filter query
-        if(!empty($this->name)){
-            $query->where('name', 'like','%' .$this->name. '%');
+        if(!empty($this->_name)){
+            $query->where('name', 'like','%' .$this->_name. '%');
         }
 
         // Sorting

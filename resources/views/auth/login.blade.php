@@ -7,13 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JustLog - Login</title>
+    <title>{{ config('settings.title') ? config('settings.title') : env('APP_NAME') }} - Login</title>
     <!-- External CSS -->
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/login/assets/css/bootstrap.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/login/assets/fonts/font-awesome/css/font-awesome.min.css') }}">
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/login/login-nine/assets/login/login-nine/images/fev.png') }}">
+    <link rel="shortcut icon" href="{{ 'storage/'.LOGO_PATH.config('settings.favicon') }}" type="image/x-icon">
  
     <!-- Custom Stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/login/login-nine/css/login-nine.css') }}">
@@ -35,9 +35,9 @@
         </div>
         <div class="col-md-6 bg-white">
             <div class="login_box">
-                     <a href="#" class="logo_text">
-                            <span>JL</span> Just Log
-                        </a>
+                     <a href="{{ url('/') }}" class="logo_text">
+                        <img class="dt-brand__logo-symbol" style="width: 250px" src="{{ asset('storage/'.LOGO_PATH.config('settings.logo')) }}"alt="IMS">
+                    </a>
                     <div class="login_form">
                         <div class="login_form_inner">
                             <form method="POST" action="{{ route('login') }}">

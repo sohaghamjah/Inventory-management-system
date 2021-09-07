@@ -9,7 +9,7 @@ class Category extends BaseModel
 {
     protected $fillable = ['name','status','created_bu','updated_by'];
 
-    public $name;
+    protected $name;
 
     public function setName($name){
         $this->name = $name;

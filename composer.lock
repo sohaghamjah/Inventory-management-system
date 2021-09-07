@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "293b5ee495273280108d788a0f13b688",
+    "content-hash": "a04953f037260471b0536090a0c96d8c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -631,6 +631,57 @@
                 }
             ],
             "time": "2021-04-26T11:24:25+00:00"
+        },
+        {
+            "name": "gladcodes/keygen",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gladchinda/keygen-php.git",
+                "reference": "8806d4440edd37a5545802a82202098b01bbafb9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gladchinda/keygen-php/zipball/8806d4440edd37a5545802a82202098b01bbafb9",
+                "reference": "8806d4440edd37a5545802a82202098b01bbafb9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Keygen\\": "src/Keygen"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Glad Chinda",
+                    "email": "gladxeqs@gmail.com"
+                }
+            ],
+            "description": "A fluent PHP random key generator.",
+            "keywords": [
+                "generator",
+                "key",
+                "key generator",
+                "keygen",
+                "php",
+                "random"
+            ],
+            "support": {
+                "issues": "https://github.com/gladchinda/keygen-php/issues",
+                "source": "https://github.com/gladchinda/keygen-php/tree/master"
+            },
+            "time": "2018-07-15T23:24:35+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -1572,6 +1623,80 @@
                 }
             ],
             "time": "2021-01-18T20:58:21+00:00"
+        },
+        {
+            "name": "milon/barcode",
+            "version": "8.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/milon/barcode.git",
+                "reference": "a1b1ee1a743c1368597f1742e6ee4765333a15a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/milon/barcode/zipball/a1b1ee1a743c1368597f1742e6ee4765333a15a1",
+                "reference": "a1b1ee1a743c1368597f1742e6ee4765333a15a1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0",
+                "php": "^7.3 | ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Milon\\Barcode\\BarcodeServiceProvider"
+                    ],
+                    "aliases": {
+                        "DNS1D": "Milon\\Barcode\\Facades\\DNS1DFacade",
+                        "DNS2D": "Milon\\Barcode\\Facades\\DNS2DFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Milon\\Barcode": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nuruzzaman Milon",
+                    "email": "contact@milon.im"
+                }
+            ],
+            "description": "Barcode generator like Qr Code, PDF417, C39, C39+, C39E, C39E+, C93, S25, S25+, I25, I25+, C128, C128A, C128B, C128C, 2-Digits UPC-Based Extention, 5-Digits UPC-Based Extention, EAN 8, EAN 13, UPC-A, UPC-E, MSI (Variation of Plessey code)",
+            "keywords": [
+                "CODABAR",
+                "CODE 128",
+                "CODE 39",
+                "barcode",
+                "datamatrix",
+                "ean",
+                "laravel",
+                "pdf417",
+                "qr code",
+                "qrcode"
+            ],
+            "support": {
+                "issues": "https://github.com/milon/barcode/issues",
+                "source": "https://github.com/milon/barcode/tree/8.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/tomilon",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/milon",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-01-08T11:36:07+00:00"
         },
         {
             "name": "monolog/monolog",

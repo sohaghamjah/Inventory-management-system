@@ -2,13 +2,25 @@
 define('USER_AVATAR_PATH', 'user/');
 define('LOGO_PATH', 'logo/');
 define('BRAND_IMAGE_PATH', 'brand/');
+define('PRODUCT_IMAGE_PATH', 'product/');
 define('DATE_FORMATE', date('d M, Y'));
 define('STATUS', ['1' => 'Active', '2' => 'Inactive']);
+define('PAYMENT_STATUS', ['1' => 'Paid', '2' => 'Due']);
+define('PURCHASE_STATUS', ['1' => 'Recived', '2' => 'Partial', '3' => 'Pending', '4' => 'Orderd']);
 define('GENDER', ['1' => 'Male', '2' => 'Female']);
+define('TAX_METHOD', ['1' => 'Exclusive', '2' => 'Inclusive']);
 define('DELETABLE',['1'=>'No','2'=>'Yes']);
 define('STATUS_LABEL', [
     '1' => '<span class="badge badge-success">Active</span>', 
     '2' => '<span class="badge badge-success">Inactive</span>'
+]);
+define('BERCODE_SYMBOLOGY', [
+    'C128'   => 'Code 128',
+    'C39'    => 'Code 39',
+    'UPCA'   => 'UPC-A',
+    'UPCE'   => 'UPC-E',
+    'EANB'   => 'EAN-B',
+    'EAN13'  => 'EAN-13',
 ]);
 define('MAIL_MAILER', ['smtp','sendmail','mail']);
 define('MAIL_ENCRYPTION', ['none'=>'null','tls'=>'tls','ssl'=>'ssl']);

@@ -285,11 +285,5 @@ div.dt-button-collection.dropdown-menu{
 #save_btn, #update_btn,#mail_save_btn,#general_save_btn{
     padding: 9px 30px
 }
-div#bs-select-2 {
-    max-height: 160px !important;
-}
-div#bs-select-1 {
-    max-height: 200px !important;
-}
 
 
