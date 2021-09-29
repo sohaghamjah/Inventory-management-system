@@ -5,5 +5,7 @@
     "Supplier": true,
     "Customer": true,
     "Product": true,
-    "Purchase": true
+    "Purchase": true,
+    "Account": true,
+    "Expense": true
 }

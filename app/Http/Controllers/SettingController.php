@@ -88,7 +88,7 @@ class SettingController extends BaseController
 
                 $output = ['status'=>'success','message'=>'Data Has Been Saved Successfully'];
                 return response()->json($output);
-            } catch (\Exception $e) {
+            }catch (\Exception $e) {
                 $output = ['status'=>'error','message'=> $e->getMessage()];
                 return response()->json($output);
             }

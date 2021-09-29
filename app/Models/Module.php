@@ -18,7 +18,6 @@ class Module extends Model
 
     public function parent(){
         return $this->belongsTo(Module::class,'parent_id','id');
-
     }
 
     public function children(){

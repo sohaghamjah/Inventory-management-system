@@ -3,13 +3,25 @@ define('USER_AVATAR_PATH', 'user/');
 define('LOGO_PATH', 'logo/');
 define('BRAND_IMAGE_PATH', 'brand/');
 define('PRODUCT_IMAGE_PATH', 'product/');
+define('PURCHASE_DOCUMENT_PATH','purchase-document/');
 define('DATE_FORMATE', date('d M, Y'));
 define('STATUS', ['1' => 'Active', '2' => 'Inactive']);
 define('PAYMENT_STATUS', ['1' => 'Paid', '2' => 'Due']);
+define('PAYMENT_STATUS_LABEL', [
+    '1' => '<span class="badge badge-success">Paid</span>', 
+    '2' => '<span class="badge badge-danger">Due</span>'
+]);
 define('PURCHASE_STATUS', ['1' => 'Recived', '2' => 'Partial', '3' => 'Pending', '4' => 'Orderd']);
+define('PURCHASE_STATUS_LABEL', [
+    '1' => '<span class="badge badge-success">Recived</span>', 
+    '2' => '<span class="badge badge-warning">Partial</span>',
+    '3' => '<span class="badge badge-danger">Pending</span>',
+    '4' => '<span class="badge badge-info">Orderd</span>',
+]);
 define('GENDER', ['1' => 'Male', '2' => 'Female']);
 define('TAX_METHOD', ['1' => 'Exclusive', '2' => 'Inclusive']);
 define('DELETABLE',['1'=>'No','2'=>'Yes']);
+define('PAYMENT_METHOD',['1'=>'Cash','2'=>'Chaque', '3' => 'Mobile']);
 define('STATUS_LABEL', [
     '1' => '<span class="badge badge-success">Active</span>', 
     '2' => '<span class="badge badge-success">Inactive</span>'

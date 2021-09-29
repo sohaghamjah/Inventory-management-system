@@ -111,7 +111,7 @@ class ProductController extends BaseController
              }
              return response()->json($output);
         }
-     }
+    }
 
     /**
      * storeOrUppdate function
@@ -270,7 +270,7 @@ class ProductController extends BaseController
                                 ->get();
                 if(!$data->isEmpty())
                 {
-                    foreach ($data as $key => $value) {
+                    foreach ($data as $value) {
                         $item['value'] = $value->code.' - '.$value->name;
                         $item['label'] = $value->code.' - '.$value->name;
                         $item['id'] = $value->id;
@@ -278,7 +278,7 @@ class ProductController extends BaseController
                     }
                 }else{
                     $output['value'] = '';
-                    $output['label'] = 'No Record Found';
+                    $output['label'] = 'No Records Found';
                 }
                 return $output;
             }
@@ -305,20 +305,35 @@ class ProductController extends BaseController
             $unit_name            = [];
             $unit_operator        = [];
             $unit_operation_value = [];
-
             if($units){
-                foreach($units as $unit){
-                    if($product_data->purchase_unit_id == $unit->id){
-                        array_unshift($unit_name, $unit->unit_name);
-                        array_unshift($unit_operator, $unit->operator);
-                        array_unshift($unit_operation_value, $unit->operation_value);
-                    }else{
-                        $unit_name            [] = $unit->unit_name;
-                        $unit_operator        [] = $unit->operator;
-                        $unit_operation_value [] = $unit->operation_value;
+                foreach ($units as $unit) {
+                    if($request->type == 'purchase'){
+                        if($product_data->purchase_unit_id == $unit->id)
+                        {
+                            array_unshift($unit_name,$unit->unit_name);
+                            array_unshift($unit_operator,$unit->operator);
+                            array_unshift($unit_operation_value,$unit->operation_value);
+                        }else{
+                            $unit_name           [] = $unit->unit_name;
+                            $unit_operator       [] = $unit->operator;
+                            $unit_operation_value[] = $unit->operation_value;
+                        }
+                    }else{ 
+                        if($product_data->sale_unit_id == $unit->id)
+                        {
+                            array_unshift($unit_name,$unit->unit_name);
+                            array_unshift($unit_operator,$unit->operator);
+                            array_unshift($unit_operation_value,$unit->operation_value);
+                        }else{
+                            $unit_name           [] = $unit->unit_name;
+                            $unit_operator       [] = $unit->operator;
+                            $unit_operation_value[] = $unit->operation_value;
+                        }
                     }
+                    
                 }
             }
+
             $product['unit_name']            = implode(',',$unit_name).',';
             $product['unit_operator']        = implode(',',$unit_operator).',';
             $product['unit_operation_value'] = implode(',',$unit_operation_value).',';

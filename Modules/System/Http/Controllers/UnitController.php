@@ -90,12 +90,10 @@ class UnitController extends BaseController
         if($request->ajax()){
             if(permission('unit-add') || permission('unit-edit')){
                 $collection = collect($request->validated())->except('operator','operation_value');
-                if($request->operator){
-                    $collection = $collection->merge(['operator'=>$request->operator]);
-                }
-                if($request->operation_value){
-                    $collection = $collection->merge(['operation_value'=>$request->operation_value]);
-                }
+                $base_unit = $request->base_unit ? $request->base_unit : null;
+                $operator = $request->operator ? $request->operator : null;
+                $operation_value = $request->operation_value ? $request->operation_value : null;
+                $collection = $collection->merge(compact('base_unit','operator','operation_value'));
                 $collection = $this->trackData($collection,$request->update_id);
                 $result = $this->model->updateOrCreate(['id' => $request->update_id], $collection->all());
                 $output = $this->storeMessage($result, $request->update_id);
