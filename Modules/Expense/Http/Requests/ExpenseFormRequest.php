@@ -4,7 +4,7 @@ namespace Modules\Expense\Http\Requests;
 
 use App\Http\Requests\FormRequest;
 
-class ExpenseCategoryFormRequest extends FormRequest
+class ExpenseFormRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,12 +13,12 @@ class ExpenseCategoryFormRequest extends FormRequest
      */
     public function rules()
     {
-       $rules = [];
-       $rules['name'] = ['required','string','unique:expense_categories,name'];
-       if(request()->update_id){
-            $rules['name'][2] = 'unique:expense_categories,name,'.request()->update_id;
-       } 
-       return $rules;
+        $rules['expense_category_id'] = ['required'];
+        $rules['warehouse_id']        = ['required'];
+        $rules['account_id']          = ['required'];
+        $rules['amount']              = ['required','numeric','gt:0'];
+        $rules['note']                = ['nullable','string'];
+        return $rules;
     }
 
     /**

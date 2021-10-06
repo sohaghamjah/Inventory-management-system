@@ -1,16 +1,15 @@
 <?php
 
-namespace Modules\Customer\Http\Controllers;
+namespace Modules\Expense\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Modules\Base\Http\Controllers\BaseController;
-use Modules\Customer\Entities\Customer;
-use Modules\Customer\Http\Requests\CustomerFormRequest;
-use Modules\System\Entities\CustomerGroup;
+use Modules\Expense\Entities\ExpenseCategory;
+use Modules\Expense\Http\Requests\ExpenseCategoryFormRequest;
 
-class CustomerController extends BaseController
+class ExpenseCategoryController extends BaseController
 {
-    public function __construct(Customer $model)
+    public function __construct(ExpenseCategory $model)
     {
         $this->model = $model;
     }
@@ -20,13 +19,13 @@ class CustomerController extends BaseController
      */
     public function index()
     {
-        if(permission('customer-access')){
-            $this -> setPageData('Customer', 'Customer', 'fas fa-user');
-            $customer_groups = CustomerGroup::activeCustomerGroups();
-            return view('customer::index', compact('customer_groups'));
+        if(permission('expense-category-access')){
+            $this -> setPageData('Expense Category', 'Expense Category', 'fas fa-th-list');
+            return view('expense::category.index');
         }else{
             return $this->unauthorizedAccessBlocked();
         }
+       
     }
 
     /**
@@ -36,20 +35,11 @@ class CustomerController extends BaseController
      * @return void
      */
     public function getDataTableData(Request $request){
-        if(permission('customer-access')){
+        if(permission('expense-category-access')){
              if($request -> ajax()){
-            // Filter datatable
+                             // Filter datatable
             if(!empty($request->name)){
                 $this->model->setName($request->name);
-            }
-            if(!empty($request->customer_group_id)){
-                $this->model->customerGroupId($request->customer_group_id);
-            }
-            if(!empty($request->phone)){
-                $this->model->setPhone($request->phone);
-            }
-            if(!empty($request->email)){
-                $this->model->setEmail($request->email);
             }
 
             // Show uer list
@@ -62,32 +52,19 @@ class CustomerController extends BaseController
             foreach ($list as $value) {
                 $no++;
                 $action = '';
-                if(permission('customer-edit')){
+                if(permission('expense-category-edit')){
                      $action .= ' <a style="cursor: pointer" class="dropdown-item edit_data" data-id="'.$value->id.'"><i class="fas fa-edit text-primary"></i> Edit</a>';
                 }
-                if(permission('customer-show')){
-                     $action .= ' <a style="cursor: pointer" class="dropdown-item view_data" data-id="'.$value->id.'"><i class="fas fa-eye text-success"></i> View</a>';
-                }
-                if(permission('customer-delete')){
+                if(permission('expense-category-delete')){
                     $action .= ' <a style="cursor: pointer" class="dropdown-item delete_data" data-name="'.$value->name.'" data-id="'.$value->id.'"><i class="fas fa-trash text-danger"></i> Delete</a>';
                 }
                 $row = [];
-                if(permission('customer-bulk-delete')){
+                if(permission('expense-category-bulk-delete')){
                     $row [] = tableCheckBox($value->id);
                 }
                 $row []    = $no;
-                $row []    = $value->customerGroup->group_name;
                 $row []    = $value->name;
-                $row []    = $value->phone;
-                $row []    = $value->company_name;
-                $row []    = $value->tax_number;
-                $row []    = $value->email;
-                $row []    = $value->address;
-                $row []    = $value->city;
-                $row []    = $value->state;
-                $row []    = $value->postal_code;
-                $row []    = $value->country;
-                $row []    = permission('customer-edit') ? changeStatus($value->id,$value->status,$value->name) : STATUS_LABEL[$value->status];
+                $row []    = permission('expense-category-edit') ? changeStatus($value->id,$value->status,$value->name) : STATUS_LABEL[$value->status];
                 $row []    = actionButton ($action);
                 $data[]    = $row;
             }
@@ -106,9 +83,9 @@ class CustomerController extends BaseController
      * @return void
      */
 
-    public function storeOrUpdate(CustomerFormRequest $request){
+    public function storeOrUpdate(ExpenseCategoryFormRequest $request){
         if($request->ajax()){
-            if(permission('customer-add') || permission('customer-edit')){
+            if(permission('expense-category-add') || permission('expense-category-edit')){
                 $collection = collect($request->validated());
                 $collection = $this->trackData($collection,$request->update_id);
                 $result = $this->model->updateOrCreate(['id' => $request->update_id], $collection->all());
@@ -129,7 +106,7 @@ class CustomerController extends BaseController
      */
     public function edit(Request $request){
         if($request->ajax()){
-            if(permission('customer-add')){
+            if(permission('expense-category-add')){
                 $data = $this->model->findOrFail($request->id);
                 $output = $this->dataMessage($data);
             }else{
@@ -142,18 +119,6 @@ class CustomerController extends BaseController
     }
 
     /**
-     * View data
-     */
-    public function show(Request $request){
-        if($request->ajax()){
-            if(permission('customer-show')){
-                $customer = $this->model->with('customerGroup')->findOrFail($request->id);
-                return view('customer::details', compact('customer')) -> render();
-            }
-        } 
-    }
-
-    /**
      * delete function
      *
      * @param Request $request
@@ -161,7 +126,7 @@ class CustomerController extends BaseController
      */
     public function delete(Request $request){
         if($request->ajax()){
-            if(permission('customer-delete')){
+            if(permission('expense-category-delete')){
                $result = $this->model->find($request->id)->delete();
                $output = $this->deleteMessage($result);
             }else{
@@ -175,7 +140,7 @@ class CustomerController extends BaseController
 
     public function bulkDelete(Request $request){
         if($request->ajax()){
-            if(permission('customer-bulk-delete')){
+            if(permission('expense-category-bulk-delete')){
                 $result = $this->model->destroy($request->ids);
                 $output = $this->bulkDeleteMessage($result);
             }else{
@@ -189,7 +154,7 @@ class CustomerController extends BaseController
 
     public function changeStatus(Request $request){
         if($request->ajax()){
-            if(permission('customer-edit')){
+            if(permission('expense-category-edit')){
                 $result = $this->model->find($request->id)->update(['status' => $request->status]);
                 $output = $result ? ['status' => 'success', 'message' => 'Status has been updated successfully'] : ['status' => 'error', 'message' => 'Faield to updated sataus'];
             }else{
@@ -199,10 +164,5 @@ class CustomerController extends BaseController
         }else{
             return response() -> json($this->accessBlocked());
         }
-    }
-
-    public function groupData(int $id){
-        $data = $this->model->with('customerGroup')->find($id);
-        return $data ? $data->customerGroup->percentage : 0;
     }
 }

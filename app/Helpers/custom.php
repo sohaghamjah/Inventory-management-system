@@ -12,11 +12,16 @@ define('PAYMENT_STATUS_LABEL', [
     '2' => '<span class="badge badge-danger">Due</span>'
 ]);
 define('PURCHASE_STATUS', ['1' => 'Recived', '2' => 'Partial', '3' => 'Pending', '4' => 'Orderd']);
+define('SALE_STATUS', ['1' => 'Completed', '2' => 'Pending']);
 define('PURCHASE_STATUS_LABEL', [
     '1' => '<span class="badge badge-success">Recived</span>', 
     '2' => '<span class="badge badge-warning">Partial</span>',
     '3' => '<span class="badge badge-danger">Pending</span>',
     '4' => '<span class="badge badge-info">Orderd</span>',
+]);
+define('SALE_STATUS_LABEL', [
+    '1' => '<span class="badge badge-success">Completed</span>', 
+    '2' => '<span class="badge badge-warning">Pending</span>',
 ]);
 define('GENDER', ['1' => 'Male', '2' => 'Female']);
 define('TAX_METHOD', ['1' => 'Exclusive', '2' => 'Inclusive']);

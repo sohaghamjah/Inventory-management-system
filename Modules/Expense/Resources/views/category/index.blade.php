@@ -30,7 +30,7 @@
                 </div>
                 <!-- /entry heading -->
                 @if (permission('expense-category-add'))
-                    <button class="btn btn-primary btn-sm" onclick="showFormModal('Add New Expense', 'Save')">
+                    <button class="btn btn-primary btn-sm" onclick="showFormModal('Add New Expense Category', 'Save')">
                         <i class="fas fa-plus-square"></i>
                         Add New
                     </button>
@@ -47,28 +47,11 @@
                     {{-- Form Filter --}}
                     <form id="form_filter" class="mb-5">
                         <div class="row">
-                            <x-forms.selectbox labelName="Expense Category" name="expense_category_id"  required="required" col="col-md-3" class="selectpicker">
-                                @if (!$categories->isEmpty())
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                @endif
-                            </x-forms.selectbox>
-                            <x-forms.selectbox labelName="Warehouse" name="warehouse_id"  required="required" col="col-md-3" class="selectpicker">
-                                @if (!$warehouses->isEmpty())
-                                    @foreach ($warehouses as $warehouse)
-                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
-                                    @endforeach
-                                @endif
-                            </x-forms.selectbox>
-                            <x-forms.selectbox labelName="Account" name="account_id"  required="required" col="col-md-3" class="selectpicker">
-                                @if (!$accounts->isEmpty())
-                                    @foreach ($accounts as $account)
-                                        <option value="{{ $account->id }}">{{ $account->name.' - '.$account->account_no }}</option>
-                                    @endforeach
-                                @endif
-                            </x-forms.selectbox>
-                            <div class="col-md-3" style="margin-top: 20px">
+                            <div class="col-md-4">
+                                <label for="name">Category Name</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Category Name...">
+                            </div>
+                            <div class="col-md-8" style="margin-top: 20px">
                                 <button id="btn_filter" type="button" class="btn btn-primary btn-sm float-right" data-toggle="tooptip" data-placement="top" data-original-title="Filter Data"><i class="fas fa-search"></i></button>
                                 <button id="btn_reset" type="button" class="btn btn-danger btn-sm float-right mr-2" data-toggle="tooptip" data-placement="top" data-original-title="Reset Data"><i class="fas fa-redo-alt"></i></button>
                             </div>
@@ -88,11 +71,7 @@
                                 </th>
                                 @endif
                                 <th>Sl</th>
-                                <th>Category</th>
-                                <th>Warehouse</th>
-                                <th>Account</th>
-                                <th>Amount</th>
-                                <th>Note</th>
+                                <th>Name</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -118,7 +97,7 @@
     <!-- /grid -->
 
 </div>
-@include('expense::.modal')
+@include('expense::category.modal')
 @endsection
 @push('script')
 <script>
@@ -145,39 +124,29 @@
                 zeroRecords: '<strong class="text-danger">No Data Found</strong>'
             },
             "ajax": {
-                "url": "{{ route('expense.datatable.data') }}",
+                "url": "{{ route('expense.category.datatable.data') }}",
                 "type": "POST",
                 "data": function (data) {
-                    data.expense_category_id =$('#form_filter #expense_category_id').val();
-                    data.warehouse_id =$('#form_filter #warehouse_id').val();
-                    data.account_id =$('#form_filter #account_id').val();
+                    data.name =$('#form_filter #name').val();
                     data._token = _token;
                 }
             },
             "columnDefs": [{
                 @if (permission('expense-category-bulk-delete'))
-                    "targets": [0, 8],
+                    "targets": [0, 4],
                 @else
-                    "targets": [7],
+                    "targets": [3],
                 @endif
                     "orderable": false,
                     "className": "text-center"
                 },
                 {
                     @if (permission('expense-category-bulk-delete'))
-                        "targets": [1, 2,3,4,6,7],
+                        "targets": [1, 3],
                     @else
-                        "targets": [0,1,2,3,5,6],
+                        "targets": [0,2],
                     @endif
                     "className": "text-center"
-                },
-                {
-                    @if (permission('expense-category-bulk-delete'))
-                        "targets": [5],
-                    @else
-                        "targets": [4],
-                    @endif
-                    "className": "text-right"
                 },
             ],
             "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6' <'float-right'B>>>" +
@@ -261,7 +230,7 @@
     $(document).on('click', '#save_btn', function(){
         var form = document.getElementById('store_or_update_form');
         var formData = new FormData(form);
-        var url = "{{ route('expense.store.or.update') }}";
+        var url = "{{ route('expense.category.store.or.update') }}";
         var id = $('update_id').val();
         var method;
         if (id){
@@ -282,7 +251,7 @@
         if(id){
             $.ajax({
                 type: "POST",
-                url: "{{ route('expense.edit') }}",
+                url: "{{ route('expense.category.edit') }}",
                 data: {
                     id: id,
                     _token: _token
@@ -290,15 +259,10 @@
                 dataType: "json",
                 success: function (data) {
                     $('#store_or_update_form #update_id').val(data.id);
-                    $('#store_or_update_form #expense_category_id').val(data.expense_category_id);
-                    $('#store_or_update_form #warehouse_id').val(data.warehouse_id);
-                    $('#store_or_update_form #account_id').val(data.account_id);
-                    $('#store_or_update_form #amount').val(data.amount);
-                    $('#store_or_update_form #note  ').val(data.note);
-                    $('#store_or_update_form #selectpicker  ').selectpicker('refresh');
+                    $('#store_or_update_form #name').val(data.name);
 
 
-                    $('#store_or_update_modal .modal-title').html('<i class="fas fa-edit"></i> <span>Edit Expense</span>');
+                    $('#store_or_update_modal .modal-title').html('<i class="fas fa-edit"></i> <span>Edit '+data.name+'</span>');
                     $('#store_or_update_modal #save_btn').text('Update');
                     $('#store_or_update_modal').modal('show');
                 },
@@ -315,7 +279,7 @@
         let id = $(this).data('id');
         let name = $(this).data('name');
         let row = table.row($(this).parent('tr'));
-        let url = "{{ route('expense.delete') }}";
+        let url = "{{ route('expense.category.delete') }}";
         deleteData(id,url,table,row,name)
     });
 
@@ -332,7 +296,7 @@
         if(ids.length == 0){
             flashMessage('error', 'Please checked at list one row');
         }else{
-            let url = "{{ route('expense.bulk.delete') }}";
+            let url = "{{ route('expense.category.bulk.delete') }}";
             bulkDelete(ids,url,table,rows);
         }
     }
@@ -344,7 +308,7 @@
     let status = $(this).data('status');
     let name = $(this).data('name');
     let row = table.row($(this).parent('tr'));
-    let url = "{{ route('expense.change.status') }}";
+    let url = "{{ route('expense.category.change.status') }}";
 
     Swal.fire({
         title: 'Are you sure to Change '+name+' status?',
@@ -387,7 +351,6 @@
     });
     $(document).on('click', '#btn_reset', function () {
         $('#form_filter')[0].reset();
-        $('#form_filter .selectpicker').selectpicker('refresh');
         table.ajax.reload();
     });
 

@@ -7,5 +7,6 @@
     "Product": true,
     "Purchase": true,
     "Account": true,
-    "Expense": true
+    "Expense": true,
+    "Sale": true
 }

@@ -25,5 +25,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('delete', [CustomerController::class, 'delete']) -> name('delete');
         Route::post('bulk-delete', [CustomerController::class, 'bulkDelete']) -> name('bulk.delete');
         Route::post('change-status', [CustomerController::class, 'changeStatus']) -> name('change.status');
+        Route::get('group-data/{id}', [CustomerController::class, 'groupData']);
     });
 });

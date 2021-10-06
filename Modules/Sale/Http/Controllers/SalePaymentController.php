@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Expense\Http\Controllers;
+namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class ExpenseCategoryContorllerController extends Controller
+class SalePaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ExpenseCategoryContorllerController extends Controller
      */
     public function index()
     {
-        return view('expense::index');
+        return view('sale::index');
     }
 
     /**
@@ -23,7 +23,7 @@ class ExpenseCategoryContorllerController extends Controller
      */
     public function create()
     {
-        return view('expense::create');
+        return view('sale::create');
     }
 
     /**
@@ -43,7 +43,7 @@ class ExpenseCategoryContorllerController extends Controller
      */
     public function show($id)
     {
-        return view('expense::show');
+        return view('sale::show');
     }
 
     /**
@@ -53,7 +53,7 @@ class ExpenseCategoryContorllerController extends Controller
      */
     public function edit($id)
     {
-        return view('expense::edit');
+        return view('sale::edit');
     }
 
     /**

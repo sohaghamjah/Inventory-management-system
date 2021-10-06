@@ -10,13 +10,13 @@ class Customer extends BaseModel
     protected $guarded = [];
 
     public function customerGroup(){
-        return $this->belongsTo(CustomerGroup::class);
+        return $this->belongsTo(CustomerGroup::class, 'customer_group_id', 'id');
     }
 
-    protected $customer_group_id;
-    protected $name;
-    protected $phone;
-    protected $emeil;
+    private $customer_group_id;
+    private $name;
+    private $phone;
+    private $email;
 
     public function setName($name){
         $this->name = $name;
