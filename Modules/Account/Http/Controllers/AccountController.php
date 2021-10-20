@@ -173,4 +173,15 @@ class AccountController extends BaseController
             return response() -> json($this->accessBlocked());
         }
     }
+
+    public function balanceSheet()
+    {
+        if(permission('balance-sheet-access')){
+            $this -> setPageData('Balance Sheet', 'Balance Sheet', 'fas fa-money-check-alt');
+            return view('account::balance_sheet');
+        }else{
+            return $this->unauthorizedAccessBlocked();
+        }
+       
+    }
 }

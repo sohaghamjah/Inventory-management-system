@@ -39,7 +39,7 @@
                 <!-- /entry heading -->
                 <a href="{{ route('sale') }}" class="btn btn-warning btn-sm">
                     <i class="fas fa-plus-square"></i>
-                    Add New
+                    Back
                 </a>
 
             </div>
@@ -132,6 +132,7 @@
                                 <label for="document">Attach Document</label>
                                 <input type="file" class="form-control" name="document" id="document">
                             </div>
+
                             <x-forms.selectbox labelName="Sale Status" name="sale_status"  required="required" col="col-md-4" class="selectpicker">
                                 @foreach (SALE_STATUS as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
@@ -182,6 +183,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group col-md-12">
+                                <label for="shipping_cost">Note</label>
+                                <textarea  class="form-control" name="note" id="note" cols="30" rows="3"></textarea>
+                            </div>
 
                             <div class="col-md-12" style="margin-top: 30px">
                                 <table class="table table-bordered">
@@ -200,7 +205,7 @@
                                 <input type="hidden" name="total_qty">
                                 <input type="hidden" name="total_discount">
                                 <input type="hidden" name="total_tax">
-                                <input type="hidden" name="total_cost">
+                                <input type="hidden" name="total_price">
                                 <input type="hidden" name="item">
                                 <input type="hidden" name="order_tax">
                                 <input type="hidden" name="grand_total">
@@ -441,7 +446,7 @@ $(document).ready(function () {
         var position = $('#edit_unit').val();
         var temp_operator = temp_unit_operator[position];
         var temp_operation_value = temp_unit_operation_value[position];
-        $('#product-list tbody tr:nth-child('+(rowIndex + 1)+')').find('.purchase-unit').val(temp_unit_name[position]);
+        $('#product-list tbody tr:nth-child('+(rowIndex + 1)+')').find('.sale-unit').val(temp_unit_name[position]);
         temp_unit_name.splice(position,1);
         temp_unit_operator.splice(position,1);
         temp_unit_operation_value.splice(position,1);
@@ -462,7 +467,7 @@ $(document).ready(function () {
 
         if($(this).val() < 1 && $(this).val() != ''){
             $('#product-list tbody tr:nth-child('+(rowIndex + 1)+') .qty').val(1);
-            notification('errpr', 'Quantity can\'t be less then 1 or null');
+            notification('error', 'Quantity can\'t be less then 1 or null');
         }
         checkQuantity($(this).val(), true);
    });
@@ -474,6 +479,7 @@ $(document).ready(function () {
    $('#product-list').on('click','.remove-product',function(){
         rowindex = $(this).closest('tr').index();
         product_price.splice(rowindex,1);
+        product_qty.splice(rowindex,1);
         product_discount.splice(rowindex,1);
         tax_rate.splice(rowindex,1);
         tax_name.splice(rowindex,1);
@@ -520,9 +526,8 @@ $(document).ready(function () {
                     cols += '<td>'+data.name+'</td>';
                     cols += '<td>'+data.code+'</td>';
                     cols += '<td class="unit-name"></td>';
-                    cols += '<td><input type="text" class="form-control qty" name="products['+count+'][qty]" id="products_'+count+'_qty" value="1"></td>';
-
                     
+                    cols += '<td><input type="text" class="form-control qty" name="products['+count+'][qty]" id="products_'+count+'_qty" value="1"></td>';
 
                     cols += '<td class="net_unit_price text-right"></td>';
                     cols += '<td class="discount text-right"></td>';
@@ -530,6 +535,7 @@ $(document).ready(function () {
                     cols += '<td class="sub-total text-right"></td>';
                     cols += '<td><button type="button" class="edit-product btn btn-sm btn-primary mr-2" data-toggle="modal"data-target="#edit_modal"><i class="fas fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm remove-product"><i class="fas fa-trash"></i></button></td>';
                     cols += '<input type="hidden" class="product-id" name="products['+count+'][id]"  value="'+data.id+'">';
+                    cols += '<input type="hidden" class="stock-qty" name="products['+count+'][stock_qty]"  value="'+data.qty+'">';
                     cols += '<input type="hidden" class="product-code" name="products['+count+'][code]" value="'+data.code+'">';
                     cols += '<input type="hidden" class="product-unit" name="products['+count+'][unit]" value="'+temp_unit_name[0]+'">';
                     cols += '<input type="hidden" class="net_unit_price" name="products['+count+'][net_unit_price]">';
@@ -543,6 +549,7 @@ $(document).ready(function () {
                     $('#product-list tbody').append(newRow);
 
                     product_price.push(parseFloat(data.price) + parseFloat(data.price * customer_group_rate));
+                    product_qty.push(data.qty)
                     product_discount.push('0.00')
                     tax_rate.push(parseFloat(data.tax_rate));
                     tax_name.push(data.tax_name);
@@ -563,7 +570,6 @@ $(document).ready(function () {
 
     function checkQuantity(sale_qty, flag){
         var row_product_code = $('#product-list tbody tr:nth-child('+(rowIndex + 1)+')').find('td:nth-child(2)').text();
-        var pos = product_code.indexOf(row_product_code);
         var operator = unit_operator[rowIndex].split(',');
         var operation_value = unit_operation_value[rowIndex].split(',');
 
@@ -600,7 +606,7 @@ $(document).ready(function () {
         var row_product_code= $('#product-list tbody tr:nth-child('+(rowIndex + 1)+')').find('td:nth-child(2)').text();
         $('#model-title').text(row_product_name+' ('+row_product_code+')');
 
-        var qty = $(this).closest('tr').find('.qty').val();
+        var qty = $('#product-list tbody tr:nth-child('+(rowIndex + 1)+')').find('.qty').val();
 
         $('#edit_qty').val(qty);
         $('#edit_discount').val(parseFloat(product_discount[rowIndex]).toFixed(2));
@@ -717,7 +723,7 @@ $(document).ready(function () {
             total += parseFloat($(this).text());
         });
         $('#total').text(total.toFixed(2));
-        $('input[name="total_cost"]').val(total.toFixed(2));
+        $('input[name="total_price"]').val(total.toFixed(2));
 
         calculateGrandTotal();
     }
@@ -811,6 +817,16 @@ $(document).ready(function () {
 
     $('#paying_amount').on('input',function(){
         $('#change_amount').val((parseFloat($('#paying_amount').val()) - parseFloat($('#paid_amount').val())).toFixed(2));
+    });
+
+    $('#sale_status').on('change',function(){
+        if($('#sale_status option:selected').val() == 1)
+        {
+            $('.payment_status').removeClass('d-none');
+        }else{
+            $('.payment_status').addClass('d-none');
+            $('.payment').addClass('d-none');
+        }
     });
     /***************************
     * Purchase add

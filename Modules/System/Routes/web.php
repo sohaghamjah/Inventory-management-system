@@ -3,6 +3,7 @@
 use Modules\System\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 use Modules\System\Http\Controllers\CustomerGroupController;
+use Modules\System\Http\Controllers\HRMSettingController;
 use Modules\System\Http\Controllers\TaxController;
 use Modules\System\Http\Controllers\UnitController;
 use Modules\System\Http\Controllers\WarehouseController;
@@ -74,4 +75,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('change-status', [UnitController::class, 'changeStatus']) -> name('change.status');
         Route::post('base-unit', [UnitController::class, 'BaseUnit']) -> name('base.unit');
     });
+
+    // Unit Routes
+    Route::get('hrm-setting', [HRMSettingController::class, 'index']);
+    Route::post('hrm-setting/store', [HRMSettingController::class, 'store']);
 });

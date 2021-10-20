@@ -22,7 +22,7 @@ class Purchase extends BaseModel
     }
 
     public function payments(){
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class, 'purchase_id', 'id');
     }
 
     private $purchase_no;

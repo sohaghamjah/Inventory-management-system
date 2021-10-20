@@ -8,5 +8,6 @@
     "Purchase": true,
     "Account": true,
     "Expense": true,
-    "Sale": true
+    "Sale": true,
+    "HRM": true
 }

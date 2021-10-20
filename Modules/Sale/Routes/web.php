@@ -30,8 +30,8 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::post('sale-payment/store-or-update', [SalePaymentControlle::class, 'storeOrUpdate']) -> name('sale.payment.store.or.update');
-    Route::post('sale-payment/view', [SalePaymentControlle::class, 'show']) -> name('sale.payment.show');
-    Route::post('sale-payment/edit', [SalePaymentControlle::class, 'edit']) -> name('sale.payment.edit');
-    Route::post('sale-payment/delete', [SalePaymentControlle::class, 'delete']) -> name('sale.payment.delete');
+    Route::post('sale-payment/store-or-update', [SalePaymentController::class, 'storeOrUpdate']) -> name('sale.payment.store.or.update');
+    Route::post('sale-payment/view', [SalePaymentController::class, 'show']) -> name('sale.payment.show');
+    Route::post('sale-payment/edit', [SalePaymentController::class, 'edit']) -> name('sale.payment.edit');
+    Route::post('sale-payment/delete', [SalePaymentController::class, 'delete']) -> name('sale.payment.delete');
 });

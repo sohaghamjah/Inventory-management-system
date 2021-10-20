@@ -24,4 +24,5 @@ Route::middleware(['auth'])->group(function () {
         Route::post('bulk-delete', [AccountController::class, 'bulkDelete']) -> name('bulk.delete');
         Route::post('change-status', [AccountController::class, 'changeStatus']) -> name('change.status');
     });
+    Route::get('balance-sheet', [AccountController::class, 'balanceSheet']) -> name('balance.sheet');
 });

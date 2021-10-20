@@ -1,15 +1,22 @@
 <?php
 define('USER_AVATAR_PATH', 'user/');
+define('EMPLOYEE_IMAGE_PATH', 'employee/');
 define('LOGO_PATH', 'logo/');
 define('BRAND_IMAGE_PATH', 'brand/');
 define('PRODUCT_IMAGE_PATH', 'product/');
 define('PURCHASE_DOCUMENT_PATH','purchase-document/');
+define('SALE_DOCUMENT_PATH','sale-document/');
 define('DATE_FORMATE', date('d M, Y'));
 define('STATUS', ['1' => 'Active', '2' => 'Inactive']);
 define('PAYMENT_STATUS', ['1' => 'Paid', '2' => 'Due']);
+define('PAYROLL_PAYMENT_METHOD',['1'=>'Cash','2'=>'Bank','3'=>'Mobile']);
 define('PAYMENT_STATUS_LABEL', [
     '1' => '<span class="badge badge-success">Paid</span>', 
     '2' => '<span class="badge badge-danger">Due</span>'
+]);
+define('ATTENDANCE_STATUS_LABEL', [
+    '1' => '<span class="badge badge-success">Present</span>', 
+    '2' => '<span class="badge badge-danger">Late</span>'
 ]);
 define('PURCHASE_STATUS', ['1' => 'Recived', '2' => 'Partial', '3' => 'Pending', '4' => 'Orderd']);
 define('SALE_STATUS', ['1' => 'Completed', '2' => 'Pending']);
@@ -18,6 +25,11 @@ define('PURCHASE_STATUS_LABEL', [
     '2' => '<span class="badge badge-warning">Partial</span>',
     '3' => '<span class="badge badge-danger">Pending</span>',
     '4' => '<span class="badge badge-info">Orderd</span>',
+]);
+define('SALE_PAYMENT_STATUS_LABEL',
+['1'=>'<span class="badge badge-success">Paid</span>',
+'2'=>'<span class="badge badge-info">Partial</span>',
+'3'=>'<span class="badge badge-danger">Due</span>',
 ]);
 define('SALE_STATUS_LABEL', [
     '1' => '<span class="badge badge-success">Completed</span>', 

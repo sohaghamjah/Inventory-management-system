@@ -95,7 +95,7 @@ class PurchasePaymentController extends Controller
                 return response()->json($output);
             }else{
                 return response()->json( ['status'=>'error','message'=>'Unauthorized Access Blocked']);
-            }
+            } 
         }
     }
 
