@@ -82,8 +82,8 @@ div.dt-button-collection.dropdown-menu{
 .dt-buttons .btn-secondary:last-child{
     margin-right: 0 !important;
 }
-#save-btn{
-    width: 90px;
+#save-btn, .spin_btn{
+    width: 100px;
 }
 .kt-spinner{position: relative;}
 .kt-spinner::before{
@@ -284,6 +284,10 @@ div.dt-button-collection.dropdown-menu{
 }
 #save_btn, #update_btn,#mail_save_btn,#general_save_btn{
     padding: 9px 30px
+}
+
+.summary-report .card {
+    height: 340px !important;
 }
 
 

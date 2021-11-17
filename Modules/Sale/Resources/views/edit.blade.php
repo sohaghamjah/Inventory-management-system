@@ -232,7 +232,9 @@
 
                             <div class="form-group col-md-12">
                                 <label for="shipping_cost">Note</label>
-                                <textarea  class="form-control" name="note" id="note" cols="30" rows="3"></textarea>
+                                <textarea  class="form-control" name="note" id="note" cols="30" rows="3">
+                                    {{ $sale->note }}
+                                </textarea>
                             </div>
 
                             <div class="col-md-12" style="margin-top: 30px">

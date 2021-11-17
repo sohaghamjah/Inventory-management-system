@@ -28,13 +28,6 @@
                 <div class="dt-entry__heading">
                     <h3 class="dt-page__title mb-0 text-primary"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h3>
                 </div>
-                <!-- /entry heading -->
-                @if (permission('account-add'))
-                    <button class="btn btn-primary btn-sm" onclick="showFormModal('Add New Account', 'Save')">
-                        <i class="fas fa-plus-square"></i>
-                        Add New
-                    </button>
-                @endif
 
             </div>
             <!-- /entry header -->
@@ -44,50 +37,44 @@
 
                 <!-- Card Body -->
                 <div class="dt-card__body">
-                    {{-- Form Filter --}}
-                    <form id="form_filter" class="mb-5">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="name">Account No</label>
-                                <input type="text" class="form-control" name="account_no" id="account_no" placeholder="Enter Account No...">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="name">Account Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Account Name...">
-                            </div>
-                            <div class="col-md-4" style="margin-top: 20px">
-                                <button id="btn_filter" type="button" class="btn btn-primary btn-sm float-right" data-toggle="tooptip" data-placement="top" data-original-title="Filter Data"><i class="fas fa-search"></i></button>
-                                <button id="btn_reset" type="button" class="btn btn-danger btn-sm float-right mr-2" data-toggle="tooptip" data-placement="top" data-original-title="Reset Data"><i class="fas fa-redo-alt"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- Tables -->
                     <table id="dataTable" class="table table-striped table-bordered table-hover">
                         <thead class="bg-primary">
                             <tr>
-                                @if (permission('account-bulk-delete'))
-                                <th>                              
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="select_all"
-                                            onchange="selectAll()">
-                                        <label class="custom-control-label" for="select_all"></label>
-                                    </div>        
-                                </th>
-                                @endif
                                 <th>Sl</th>
-                                <th>Account No</th>
                                 <th>Account Name</th>
-                                <th>Initial Balance {{ (config('settings.currency_code')) }}</th>
-                                <th>Note</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Account No</th>
+                                <th>Credit</th>
+                                <th>Debid</th>
+                                <th>Balance</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            @if(!$accounts->isEmpty())
+                                @php
+                                    $i=1;
+                                @endphp
+                                @foreach ($accounts as $key => $account)
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $account->name }}</td>
+                                        <td>{{ $account->account_no }}</td>
+                                        <td>{{ number_format((float)$credit[$key],2,'.',',') }}</td>
+                                        <td>{{ number_format((float)($debit[$key] * -1),2,'.',',') }}</td>
+                                        <td>{{ number_format((float)($credit[$key] - $debit[$key]),2,'.',',') }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
-
-                        </tbody>
+                        <tfoot>
+                            <tr class="bg-primary">
+                                <th></th>
+                                <th></th>
+                                <th class="text-right">Total</th>
+                                <th class="text-right"></th>
+                                <th class="text-right"></th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </tfoot>
                     </table>
                     <!-- /tables -->
 
@@ -104,7 +91,6 @@
     <!-- /grid -->
 
 </div>
-@include('account::modal')
 @endsection
 @push('script')
 <script>
@@ -113,64 +99,39 @@
     $(document).ready(function ($) {
     // ================Data Table show setup=============
         table = $('#dataTable').DataTable({
-            "processing": true, //Feature control the processing indicator
-            "serverSide": true, //Feature control DataTable server side processing mode
             "order": [], //Initial no order
             "responsive": true, //Make table responsive in mobile device
             "bInfo": true, //TO show the total number of data
-            "bFilter": false, //For datatable default search box show/hide
-            "lengthCategory": [
+            "bFilter": true, //For datatable default search box show/hide
+            "lengthMenu": [
                 [5, 10, 15, 25, 50, 100, 1000, 10000, -1],
                 [5, 10, 15, 25, 50, 100, 1000, 10000, "All"]
             ],
             "pageLength": 25, //number of data show per page
-            "language": {
-                processing: `<i class="fas fa-spinner fa-spin fa-3x fa-fw text-primary"></i>`,
+            "language": { 
+                processing: `<i class="fas fa-spinner fa-spin fa-3x fa-fw text-primary"></i> `,
                 emptyTable: '<strong class="text-danger">No Data Found</strong>',
                 infoEmpty: '',
                 zeroRecords: '<strong class="text-danger">No Data Found</strong>'
             },
-            "ajax": {
-                "url": "{{ route('account.datatable.data') }}",
-                "type": "POST",
-                "data": function (data) {
-                    data.name =$('#form_filter #name').val();
-                    data.account_no =$('#form_filter #account_no').val();
-                    data._token = _token;
-                }
-            },
             "columnDefs": [{
-                @if (permission('account-bulk-delete'))
-                    "targets": [0, 7],
-                @else
-                    "targets": [6],
-                @endif
+                    "targets": [0,1,2,3,4,5],
                     "orderable": false,
+                },
+                {
+                    "targets": [0],
                     "className": "text-center"
                 },
                 {
-                    @if (permission('account-bulk-delete'))
-                        "targets": [6],
-                    @else
-                        "targets": [5],
-                    @endif
-                    "className": "text-center"
-                },
-                {
-                    @if (permission('account-bulk-delete'))
-                        "targets": [4],
-                    @else
-                        "targets": [3],
-                    @endif
+                    "targets": [3,4,5],
                     "className": "text-right"
-                },
+                }
             ],
-            "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6' <'float-right'B>>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'<'float-right'p>>>",
+            "dom": "<'row'<'col-sm-12 col-md-3'l><'col-sm-12 col-md-9' <'float-right'fB>>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'<'float-right'p>>>",
 
             "buttons": [
-                @if (permission('account-report'))
                 {
                     'extend': 'colvis',
                     'className': 'btn btn-secondary btn-sm text-white',
@@ -191,190 +152,68 @@
                     customize: function (win) {
                         $(win.document.body).addClass('bg-white');
                     },
+                    footer: true,
                 },
                 {
                     "extend": 'csv',
                     'text': 'CSV',
                     'className': 'btn btn-secondary btn-sm text-white',
-                    "title": "Account List",
-                    "filename": "account-list",
+                    "title": "Account Balance Sheet",
+                    "filename": "account-balance-sheet",
                     "exportOptions": {
                         columns: function (index, data, node) {
                             return table.column(index).visible();
                         }
-                    }
+                    },
+                    footer: true,
                 },
                 {
                     "extend": 'excel',
                     'text': 'Excel',
                     'className': 'btn btn-secondary btn-sm text-white',
-                    "title": "Account List",
-                    "filename": "account-list",
+                    "title": "Account Balance Sheet",
+                    "filename": "account-balance-sheet",
                     "exportOptions": {
                         columns: function (index, data, node) {
                             return table.column(index).visible();
                         }
-                    }
+                    },
+                    footer: true,
                 },
                 {
                     "extend": 'pdf',
                     'text': 'PDF',
                     'className': 'btn btn-secondary btn-sm text-white',
-                    "title": "Account List",
-                    "filename": "account-list",
+                    "title": "Account Balance Sheet",
+                    "filename": "account-balance-sheet",
                     "orientation": "landscape", //portrait
                     "pageSize": "A4", //A3,A5,A6,legal,letter
                     "exportOptions": {
-                        columns: [1, 2, 3]
+                        columns: [0,1,2,3,4,5]
                     },
+                    footer: true,
                 },
-                @endif
-                @if (permission('account-bulk-delete'))
-                {
-                    "className": "btn btn-danger btn-sm delete_btn d-none text-white",
-                    "text": "Delete",
-                    action: function (e, dt, node, config) {
-                        multiDelete();
-                    }
-                }
-                @endif
             ],
+
+            "footerCallback" : function(row,data,start,end,display)
+            {
+                var api = this.api(), data;
+                var intVal = function(i){
+                    return typeof i === 'string' ? i.replace(/[\$,]/g,'')*1 : typeof i === 'number' ?  i : 0;
+                };
+                for(var index=3;index <= 5;index++)
+                {
+                    total = api.column(index).data().reduce(function (a,b){
+                        return intVal(a) + intVal(b);
+                    },0);
+                    pageTotal = api.column(index, {page: 'current'}).data().reduce(function (a,b){
+                        return intVal(a) + intVal(b);
+                    },0);
+                    $(api.column(index).footer()).html('= '+parseFloat(pageTotal).toFixed(2)+' ('+parseFloat(total).toFixed(2)+' Total)');
+                }
+             }
+
         });
-
- 
-    // ============== form submit btn click================
-    $(document).on('click', '#save_btn', function(){
-        var form = document.getElementById('store_or_update_form');
-        var formData = new FormData(form);
-        var url = "{{ route('account.store.or.update') }}";
-        var id = $('update_id').val();
-        var method;
-        if (id){
-            method = 'update';
-        }else{
-            method = 'add';
-        }
-        storeOrUpdateFormData(table,url,method,formData);
-    });
-
-    //=================== Edit Data ======================
-
-    $(document).on('click', '.edit_data', function () {
-        let id = $(this).data('id');
-        $('#store_or_update_form')[0].reset();
-        $('#store_or_update_form').find('.is-invalid').removeClass('is-invalid');
-        $('#store_or_update_form').find('.error').remove();
-        if(id){
-            $.ajax({
-                type: "POST",
-                url: "{{ route('account.edit') }}",
-                data: {
-                    id: id,
-                    _token: _token
-                },
-                dataType: "json",
-                success: function (data) {
-                    $('#store_or_update_form #update_id').val(data.id);
-                    $('#store_or_update_form #account_no').val(data.account_no);
-                    $('#store_or_update_form #name').val(data.name);
-                    $('#store_or_update_form #initial_balance').val(data.initial_balance);
-                    $('#store_or_update_form #note').val(data.note);
-
-
-                    $('#store_or_update_modal .modal-title').html('<i class="fas fa-edit"></i> <span>Edit '+data.name+'</span>');
-                    $('#store_or_update_modal #save_btn').text('Update');
-
-                    $('#store_or_update_modal').modal('show');
-                },
-                error: function(xhr, ajaxOption, thrownError){
-                    console.log(thrownError+'\r\n'+xhr.statusText+'\r\n'+xhr.responseText);
-                },
-            });
-        }
-    });
-
-    //================== Delete Data ======================
-
-    $(document).on('click', '.delete_data', function () {
-        let id = $(this).data('id');
-        let name = $(this).data('name');
-        let row = table.row($(this).parent('tr'));
-        let url = "{{ route('account.delete') }}";
-        deleteData(id,url,table,row,name)
-    });
-
-    // ============== Multiple data delete ================
-
-    function multiDelete(){
-        let ids = [];
-        let rows;
-
-        $('.select_data:checked').each(function(){
-            ids.push($(this).val());
-            rows = table.rows($('.select_data:checked').parents('tr'));
-        });
-        if(ids.length == 0){
-            flashMessage('error', 'Please checked at list one row');
-        }else{
-            let url = "{{ route('account.bulk.delete') }}";
-            bulkDelete(ids,url,table,rows);
-        }
-    }
-
-    //================== Change user status ======================
-
-    $(document).on('click', '.change_status', function () {
-    let id = $(this).data('id');
-    let status = $(this).data('status');
-    let name = $(this).data('name');
-    let row = table.row($(this).parent('tr'));
-    let url = "{{ route('account.change.status') }}";
-
-    Swal.fire({
-        title: 'Are you sure to Change '+name+' status?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Change status!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        id: id,
-                        status: status,
-                        _token: _token,
-                    },
-                    dataType: "json",
-                }).done(function(response){
-                    if(response.status == 'success'){
-                        swal.fire('Changed',response.message,"success").then(function(){
-                            table.ajax.reload(null,false);
-                        });
-                    }
-                    if(response.status == 'error'){
-                        swal.fire('Ooops...',response.message, response.status);
-                    }
-                }).fail(function(){
-                    swal.fire('Ooops...',"Something went wrong!", "error");
-                });
-            }
-        });
-    });
-
-
-    // ===================Data table filter===============
-    $(document).on('click', '#btn_filter', function () {
-        table.ajax.reload();
-    });
-    $(document).on('click', '#btn_reset', function () {
-        $('#form_filter')[0].reset();
-        table.ajax.reload();
-    });
-
-
 
     });
 </script>

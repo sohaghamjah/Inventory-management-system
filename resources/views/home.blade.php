@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('stylesheet')
+    <link rel="stylesheet" href="{{ asset('css/chart.min.css') }}">
+@endpush
+
 @section('content')
 <div class="dt-content">
 
@@ -7,635 +11,13 @@
     <div class="row">
 
       <!-- Grid Item -->
-      <div class="col-xl-3 col-sm-6">
-
-        <!-- Chart Card -->
-        <div class="dt-card dt-chart dt-card__full-height">
-
-          <!-- Chart Header -->
-          <div class="dt-chart__header">
-            <div class="style-default style-crypto">
-              <h2>$9,626</h2>
-
-              <div class="trending-section text-success">
-                <h4>38%</h4>
-                <i class="icon icon-menu-up"></i>
-              </div>
-
-              <p>Bitcoin Price</p>
-            </div>
-          </div>
-          <!-- /chart header -->
-
-          <!-- Action Tools -->
-          <div class="action-tools">
-            <i class="icon icon-bitcoin icon-3x text-primary"></i>
-          </div>
-          <!-- /action tools -->
-
-          <!-- Chart Body -->
-          <div class="dt-chart__body">
-            <canvas class="rounded-xl" id="chart-active-users" height="96" data-shadow="yes"></canvas>
-          </div>
-          <!-- /chart body -->
-
+      <div class="col-md-12">
+        <div class="filter-toggle btn-group float-right">
+          <div class="btn btn-primary data-btn" data-start_date="{{ date('Y-m-d') }}" data-end_date="{{ date('Y-m-d') }}">Today</div>
+          <div class="btn btn-primary data-btn" data-start_date="{{ date('Y-m-d',strtotime('-7 day')) }}" data-end_date="{{ date('Y-m-d') }}">This Week</div>
+          <div class="btn btn-primary data-btn active" data-start_date="{{ date('Y-m').'-01' }}" data-end_date="{{ date('Y-m-d') }}">This Month</div>
+          <div class="btn btn-primary data-btn" data-start_date="{{ date('Y').'-01-01' }}" data-end_date="{{ date('Y').'-12-31' }}">This Year</div>
         </div>
-        <!-- /chart card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-3 col-sm-6">
-
-        <!-- Chart Card -->
-        <div class="dt-card dt-chart dt-card__full-height">
-
-          <!-- Chart Header -->
-          <div class="dt-chart__header">
-            <div class="style-default style-crypto">
-              <h2>$7,831</h2>
-
-              <div class="trending-section text-success">
-                <h4>07%</h4>
-                <i class="icon icon-menu-up"></i>
-              </div>
-
-              <p>Etherium Price</p>
-            </div>
-          </div>
-          <!-- /chart header -->
-
-          <!-- Action Tools -->
-          <div class="action-tools">
-            <i class="icon icon-etherium icon-3x text-primary"></i>
-          </div>
-          <!-- /action tools -->
-
-          <!-- Chart Body -->
-          <div class="dt-chart__body">
-            <canvas class="rounded-xl" id="chart-extra-revenue" height="96" data-shadow="yes"></canvas>
-          </div>
-          <!-- /chart body -->
-
-        </div>
-        <!-- /chart card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-3 col-sm-6">
-
-        <!-- Chart Card -->
-        <div class="dt-card dt-chart dt-card__full-height">
-
-          <!-- Chart Header -->
-          <div class="dt-chart__header">
-            <div class="style-default style-crypto">
-              <h2>$1,239</h2>
-
-              <div class="trending-section text-danger">
-                <h4>08%</h4>
-                <i class="icon icon-menu-down"></i>
-              </div>
-
-              <p>Ripple Price</p>
-            </div>
-          </div>
-          <!-- /chart header -->
-
-          <!-- Action Tools -->
-          <div class="action-tools">
-            <i class="icon icon-ripple icon-3x text-primary"></i>
-          </div>
-          <!-- /action tools -->
-
-          <!-- Chart Body -->
-          <div class="dt-chart__body">
-            <canvas class="rounded-xl" id="chart-orders" height="96" data-shadow="yes"></canvas>
-          </div>
-          <!-- /chart body -->
-
-        </div>
-        <!-- /chart card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-3 col-sm-6">
-
-        <!-- Chart Card -->
-        <div class="dt-card dt-chart dt-card__full-height">
-
-          <!-- Chart Header -->
-          <div class="dt-chart__header">
-            <div class="style-default style-crypto">
-              <h2>$849</h2>
-
-              <div class="trending-section text-danger">
-                <h4>47%</h4>
-                <i class="icon icon-menu-down"></i>
-              </div>
-
-              <p>Litcoin Price</p>
-            </div>
-          </div>
-          <!-- /chart header -->
-
-          <!-- Action Tools -->
-          <div class="action-tools">
-            <i class="icon icon-litcoin icon-3x text-primary"></i>
-          </div>
-          <!-- /action tools -->
-
-          <!-- Chart Body -->
-          <div class="dt-chart__body">
-            <canvas class="rounded-xl" id="chart-traffic-raise" height="96" data-shadow="no"
-                    data-type="line"></canvas>
-          </div>
-          <!-- /chart body -->
-
-        </div>
-        <!-- /chart card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-6">
-
-        <!-- Card -->
-        <div class="dt-card dt-card__full-height">
-
-          <!-- Card Header -->
-          <div class="dt-card__header">
-
-            <!-- Card Heading -->
-            <div class="dt-card__heading">
-              <h3 class="dt-card__title">Your Portfolio Balance</h3>
-            </div>
-            <!-- /card heading -->
-
-          </div>
-          <!-- /card header -->
-
-          <!-- Card Body -->
-          <div class="dt-card__body">
-            <!-- Grid -->
-            <div class="row no-gutters">
-              <!-- Grid Item -->
-              <div class="col-sm-7 pr-sm-2 mb-6 mb-sm-0">
-                <h2 class="display-2 font-weight-medium mb-3">
-                  $179,626
-                  <span class="d-inline-block f-14 text-success">64% <i class="icon icon-menu-up"></i></span>
-                </h2>
-
-                <span class="d-inline-block text-light-gray mb-6">Overall balance</span>
-
-                <p class="card-text">
-                  <a href="javascript:void(0)" class="btn btn-primary mr-2">Deposit</a>
-                  <a href="javascript:void(0)" class="btn text-white bg-cyan">Withdraw</a>
-                </p>
-
-                <a href="javascript:void(0)" class="d-inline-block">
-                  <i class="icon icon-add-circle mr-2"></i>Add New Wallet
-                </a>
-              </div>
-              <!-- /grid item -->
-              <!-- Grid Item -->
-              <div class="col-sm-5">
-                <h5 class="mb-4">Portfolio Distribution</h5>
-                <ul class="dt-indicator">
-                  <li class="dt-indicator-item">
-                    <h5 class="dt-indicator-title f-12">BTC <span
-                          class="d-inline-block border-left text-light-gray pl-2 ml-1">8.74</span></h5>
-                    <div class="dt-indicator-item__info" data-fill="78" data-max="100" data-percent="true">
-                      <div class="dt-indicator-item__fill bg-primary"></div>
-                      <span class="dt-indicator-item__count ml-3">0</span>
-                    </div>
-                  </li>
-                  <li class="dt-indicator-item">
-                    <h5 class="dt-indicator-title f-12">RPL <span
-                          class="d-inline-block border-left text-light-gray pl-2 ml-1">1.23</span></h5>
-                    <div class="dt-indicator-item__info" data-fill="52" data-max="100" data-percent="true">
-                      <div class="dt-indicator-item__fill bg-success"></div>
-                      <span class="dt-indicator-item__count ml-3">0</span>
-                    </div>
-                  </li>
-                  <li class="dt-indicator-item">
-                    <h5 class="dt-indicator-title f-12">LTE <span
-                          class="d-inline-block border-left text-light-gray pl-2 ml-1">0.71</span></h5>
-                    <div class="dt-indicator-item__info" data-fill="18" data-max="100" data-percent="true">
-                      <div class="dt-indicator-item__fill bg-warning"></div>
-                      <span class="dt-indicator-item__count ml-3">0</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <!-- /grid item -->
-            </div>
-            <!-- /grid -->
-          </div>
-          <!-- /card body -->
-
-        </div>
-        <!-- /card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-6">
-
-        <!-- Card -->
-        <div class="dt-card dt-card__full-height">
-
-          <!-- Card Header -->
-          <div class="dt-card__header">
-
-            <!-- Card Heading -->
-            <div class="dt-card__heading">
-              <h3 class="dt-card__title">Balance History</h3>
-            </div>
-            <!-- /card heading -->
-
-            <!-- Card Tools -->
-            <div class="dt-card__tools">
-
-              <!-- Dropdown -->
-              <div class="dropdown d-inline-block">
-                <a class="dropdown-toggle d-inline-block f-12 py-1 px-2 border rounded text-light-gray"
-                   href="#"
-                   data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                  Last 30 days
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="javascript:void(0)">Last week</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Last 6 month</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Last 1 year</a>
-                </div>
-              </div>
-              <!-- /dropdown -->
-
-            </div>
-            <!-- /card tools -->
-
-          </div>
-          <!-- /card header -->
-
-          <!-- Chart Body -->
-          <div class="dt-chart__body">
-            <canvas height="100" id="chart-balance-history"></canvas>
-          </div>
-          <!-- /chart body -->
-
-        </div>
-        <!-- /card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-5 col-md-12">
-
-        <!-- Card -->
-        <div class="dt-card dt-card__full-height">
-
-          <!-- Card Header -->
-          <div class="dt-card__header">
-
-            <!-- Card Heading -->
-            <div class="dt-card__heading">
-              <h3 class="dt-card__title">Send Money to</h3>
-            </div>
-            <!-- /card heading -->
-
-            <!-- Card Tools -->
-            <div class="dt-card__tools">
-              <a href="javascript:void(0)" class="dt-card__more"><i class="icon icon-add-circle mr-2"></i>Add New
-                Account</a>
-            </div>
-            <!-- /card tools -->
-
-          </div>
-          <!-- /card header -->
-
-          <!-- Card Body -->
-          <div class="dt-card__body pb-2">
-
-            <!-- Campaigns Widget -->
-            <div class="campaigns-widget">
-
-              <!-- Grid -->
-              <div class="row no-gutters pb-3 border-bottom">
-
-                <!-- Grid Item -->
-                <div class="col-6">
-                  Account Holder Name
-                </div>
-                <!-- /grid item -->
-
-                <!-- Grid Item -->
-                <div class="col-3 text-right">
-                  Last Transfer
-                </div>
-                <!-- /grid item -->
-
-                <!-- Grid Item -->
-                <div class="col-3 text-right">
-                  ACTION
-                </div>
-                <!-- /grid item -->
-
-              </div>
-              <!-- /grid -->
-
-              <!-- Widget -->
-              <div class="dt-widget dt-widget-sm dt-widget-hover">
-
-                <!-- Widget Item -->
-                <div class="dt-widget__item">
-
-                  <!-- Grid -->
-                  <div class="row no-gutters">
-
-                    <!-- Grid Item -->
-                    <div class="col-6 pr-2">
-
-                      <!-- Avatar Wrapper -->
-                      <div class="dt-avatar-wrapper">
-                        <!-- Avatar -->
-                        <img class="dt-avatar size-30" src="assets/default/assets/images/user-avatar/nikki.jpg" alt="Mila Alba">
-                        <!-- /avatar -->
-
-                        <!-- Info -->
-                        <div class="dt-avatar-info dt-widget__title">
-                          <span class="dt-avatar-name">Mila Alba</span>
-                        </div>
-                        <!-- /info -->
-                      </div>
-                      <!-- /avatar wrapper -->
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <span class="mb-0 d-inline-block">2 hrs. ago</span>
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <a class="d-inline-block" href="javascript:void(0)"><i
-                            class="icon icon-forward icon-fw mr-2"></i>Pay</a>
-                    </div>
-                    <!-- /grid item -->
-
-                  </div>
-                  <!-- /grid -->
-
-                </div>
-                <!-- /widgets item -->
-
-                <!-- Widget Item -->
-                <div class="dt-widget__item">
-
-                  <!-- Grid -->
-                  <div class="row no-gutters">
-
-                    <!-- Grid Item -->
-                    <div class="col-6 pr-2">
-
-                      <!-- Avatar Wrapper -->
-                      <div class="dt-avatar-wrapper">
-                        <!-- Avatar -->
-                        <img class="dt-avatar size-30" src="assets/default/assets/images/user-avatar/amay.jpg" alt="Dinesh Suthar">
-                        <!-- /avatar -->
-
-                        <!-- Info -->
-                        <div class="dt-avatar-info dt-widget__title">
-                          <span class="dt-avatar-name">Dinesh Suthar</span>
-                        </div>
-                        <!-- /info -->
-                      </div>
-                      <!-- /avatar wrapper -->
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <span class="mb-0 d-inline-block">17 days ago</span>
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <a class="d-inline-block" href="javascript:void(0)"><i
-                            class="icon icon-forward icon-fw mr-2"></i>Pay</a>
-                    </div>
-                    <!-- /grid item -->
-
-                  </div>
-                  <!-- /grid -->
-
-                </div>
-                <!-- /widgets item -->
-
-                <!-- Widget Item -->
-                <div class="dt-widget__item">
-
-                  <!-- Grid -->
-                  <div class="row no-gutters">
-
-                    <!-- Grid Item -->
-                    <div class="col-6 pr-2">
-
-                      <!-- Avatar Wrapper -->
-                      <div class="dt-avatar-wrapper">
-                        <!-- Avatar -->
-                        <img class="dt-avatar size-30" src="assets/default/assets/images/user-avatar/garry-sobars.jpg"
-                             alt="Pukhraj">
-                        <!-- /avatar -->
-
-                        <!-- Info -->
-                        <div class="dt-avatar-info dt-widget__title">
-                          <span class="dt-avatar-name">Pukhraj Prajapat</span>
-                        </div>
-                        <!-- /info -->
-                      </div>
-                      <!-- /avatar wrapper -->
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <span class="mb-0 d-inline-block">1 month ago</span>
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <a class="d-inline-block" href="javascript:void(0)"><i
-                            class="icon icon-forward icon-fw mr-2"></i>Pay</a>
-                    </div>
-                    <!-- /grid item -->
-
-                  </div>
-                  <!-- /grid -->
-
-                </div>
-                <!-- /widgets item -->
-
-                <!-- Widget Item -->
-                <div class="dt-widget__item">
-
-                  <!-- Grid -->
-                  <div class="row no-gutters">
-
-                    <!-- Grid Item -->
-                    <div class="col-6 pr-2">
-
-                      <!-- Avatar Wrapper -->
-                      <div class="dt-avatar-wrapper">
-                        <!-- Avatar -->
-                        <img class="dt-avatar size-30" src="assets/default/assets/images/user-avatar/domnic-harris.jpg"
-                             alt="crish Harris">
-                        <!-- /avatar -->
-
-                        <!-- Info -->
-                        <div class="dt-avatar-info dt-widget__title">
-                          <span class="dt-avatar-name">Chris Harris</span>
-                        </div>
-                        <!-- /info -->
-                      </div>
-                      <!-- /avatar wrapper -->
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <span class="mb-0 d-inline-block">1 month ago</span>
-                    </div>
-                    <!-- /grid item -->
-
-                    <!-- Grid Item -->
-                    <div class="col-3 d-flex align-items-center justify-content-end">
-                      <a class="d-inline-block" href="javascript:void(0)"><i
-                            class="icon icon-forward icon-fw mr-2"></i>Pay</a>
-                    </div>
-                    <!-- /grid item -->
-
-                  </div>
-                  <!-- /grid -->
-
-                </div>
-                <!-- /widgets item -->
-
-              </div>
-              <!-- /widget -->
-
-            </div>
-            <!-- /campaigns widget -->
-
-          </div>
-          <!-- /card body -->
-
-        </div>
-        <!-- /card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-3 col-md-6">
-
-        <!-- Card -->
-        <div class="dt-card dt-card__full-height bg-dark-primary text-white">
-
-          <!-- Card Body -->
-          <div class="dt-card__body text-center">
-
-            <!-- Icon -->
-            <i class="icon icon-refer icon-6x mb-5"></i>
-            <!-- /icon -->
-
-            <h3 class="text-white">Refer and Get Reward</h3>
-
-            <p class="card-text">Reffer us to your friends and earn bonus when they join.</p>
-            <a class="btn btn-secondary text-white" href="javascript:void(0)">Invite Friends</a>
-
-          </div>
-          <!-- /card body -->
-
-        </div>
-        <!-- /card -->
-
-      </div>
-      <!-- /grid item -->
-
-      <!-- Grid Item -->
-      <div class="col-xl-4 col-md-6">
-
-        <!-- Card -->
-        <div class="dt-card dt-card__full-height">
-
-          <!-- Card Header -->
-          <div class="dt-card__header mb-4">
-
-            <!-- Card Heading -->
-            <div class="dt-card__heading">
-              <h3 class="dt-card__title">Currency Calculator</h3>
-            </div>
-            <!-- /card heading -->
-
-          </div>
-          <!-- /card header -->
-
-          <!-- Card Body -->
-          <div class="dt-card__body">
-
-            <span class="d-block mb-2">1.87 BTC equals</span>
-            <h2 class="mb-2 display-4 font-weight-medium text-primary">11466.78 USD</h2>
-            <span class="d-block mb-6 f-12">@ 1 BTC = 6718.72 USD</span>
-
-            <!-- Form -->
-            <form>
-              <div class="form-row mb-4">
-                <div class="col-sm-4 col-6">
-                  <label for="currency-type-1">From</label>
-                  <select class="custom-select custom-select-sm" id="currency-type-1">
-                    <option selected>BTC</option>
-                    <option value="1">RPL</option>
-                    <option value="2">LTE</option>
-                  </select>
-                </div>
-                <div class="col-sm-4 col-6">
-                  <label for="currency-type">From</label>
-                  <select class="custom-select custom-select-sm" id="currency-type">
-                    <option selected>USD</option>
-                    <option value="1">Yen</option>
-                    <option value="2">Dinar</option>
-                  </select>
-                </div>
-                <div class="col-sm-4 col-12 mt-5 mt-sm-0">
-                  <label for="amount">Amount(BTC)</label>
-                  <input type="text" class="form-control form-control-sm" id="amount" placeholder="Amount">
-                </div>
-              </div>
-              <button class="btn btn-primary" type="submit">Transfer Now</button>
-            </form>
-            <!-- /form -->
-
-          </div>
-          <!-- /card body -->
-
-        </div>
-        <!-- /card -->
-
       </div>
       <!-- /grid item -->
 
@@ -643,286 +25,361 @@
     <!-- /grid -->
 
     <!-- Grid -->
-    <div class="row">
+    <div class="row" style="margin-top: 30px">
 
       <!-- Grid Item -->
-      <div class="col-xl-4 order-xl-2">
-
-        <!-- Grid -->
-        <div class="row">
-          <!-- Grid Item -->
-          <div class="col-xl-12">
-
-            <!-- Card -->
-            <div class="dt-card dt-card__full-height bg-image">
-
-              <!-- Card Body -->
-              <div class="dt-card__body bg-gradient-dark-purple">
-
-                <!-- Grid -->
-                <div class="row">
-
-                  <!-- Grid Item -->
-                  <div class="col-xl-8">
-                    <p class="mb-2">Download Mobile Apps</p>
-                    <p class="mb-xl-0 display-5 font-weight-medium">Now, your account is on your fingers</p>
-                  </div>
-                  <!-- /grid item -->
-
-                  <!-- Grid Item -->
-                  <div class="col-xl-4">
-                    <a href="javascript:void(0)" class="d-inline-block mb-2">
-                      <img src="assets/default/assets/images/dashboard/google-play-store.png" alt="Play Store" class="img-fluid">
-                    </a> <a href="javascript:void(0)" class="d-inline-block">
-                      <img src="assets/default/assets/images/dashboard/apple-app-store.png" alt="App Store" class="img-fluid"> </a>
-                  </div>
-                  <!-- /grid item -->
-
-                </div>
-                <!-- /grid -->
-              </div>
-              <!-- /card body -->
-
-            </div>
-            <!-- /card -->
-
-          </div>
-          <!-- /grid item -->
-
-          <!-- Grid Item -->
-          <div class="col-xl-12">
-
-            <!-- Card -->
-            <div class="dt-card">
-
-              <!-- Card Header -->
-              <div class="dt-card__header">
-
-                <!-- Card Heading -->
-                <div class="dt-card__heading">
-                  <h3 class="dt-card__title">Order History</h3>
-                </div>
-                <!-- /card heading -->
-
-                <!-- Card Tools -->
-                <div class="dt-card__tools">
-                  <a href="javascript:void(0)" class="dt-card__more">Detailed History</a>
-                </div>
-                <!-- /card tools -->
-
-              </div>
-              <!-- /card header -->
-
-              <!-- Card Body -->
-              <div class="dt-card__body pb-5">
-
-                <!-- Tables -->
-                <div class="table-responsive ps-custom-scrollbar">
-                  <table class="table table-ordered table-bordered-0 mb-0">
-                    <thead>
-                    <tr>
-                      <th class="text-uppercase">Currency</th>
-                      <th class="text-uppercase text-right" scope="col">Rate (USD)</th>
-                      <th class="text-uppercase text-center" scope="col">Date</th>
-                      <th class="text-uppercase text-right" scope="col">Fee</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td>0.24 BTC</td>
-                      <td class="text-right text-nowrap">1 BTC = $740</td>
-                      <td class="text-center">08.10.17</td>
-                      <td class="text-right text-danger">-$2.33</td>
-                    </tr>
-                    <tr>
-                      <td>0.32 RPL</td>
-                      <td class="text-right text-nowrap">1 RPL = $80.2</td>
-                      <td class="text-center">08.03.17</td>
-                      <td class="text-right text-danger">-$1.23</td>
-                    </tr>
-                    <tr>
-                      <td>0.24 BTC</td>
-                      <td class="text-right text-nowrap">1 BTC = $740</td>
-                      <td class="text-center">07.29.17</td>
-                      <td class="text-right text-danger">-$3.22</td>
-                    </tr>
-                    <tr>
-                      <td>0.22 BTC</td>
-                      <td class="text-right text-nowrap">1 BTC = $740</td>
-                      <td class="text-center">07.28.17</td>
-                      <td class="text-right text-danger">-$3.22</td>
-                    </tr>
-                    <tr>
-                      <td>0.74 LTE</td>
-                      <td class="text-right text-nowrap">1 LTE = $99.9</td>
-                      <td class="text-center">05.22.17</td>
-                      <td class="text-right text-danger">-$2.21</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /tables -->
-
-              </div>
-              <!-- /card body -->
-
-            </div>
-            <!-- /card -->
-
-          </div>
-          <!-- /grid item -->
+      <div class="col-xl-2 col-sm-4">
+        <div class="dt-card dt-chart dt-card__full-height bg-primary align-items-center pt-5">
+          <img src="images/sale.svg" alt="Sale" width="30px;">
+          <h4 class="text-white mt-3 mb-0" id="sale">{{ number_format($sale, 2) }}</h4>
+          <h2 class="text-white mt-1">Sale</h2>
         </div>
-        <!-- /grid -->
-
       </div>
-      <!-- /grid item -->
 
-      <!-- Grid Item -->
-      <div class="col-xl-8 order-xl-1">
-
-        <!-- Card -->
-        <div class="dt-card dt-card__full-height">
-
-          <!-- Card Header -->
-          <div class="dt-card__header">
-
-            <!-- Card Heading -->
-            <div class="dt-card__heading order-sm-1 flex-initial">
-              <h3 class="dt-card__title">Crypto News</h3>
-            </div>
-            <!-- /card heading -->
-
-            <!-- Card Tools -->
-            <div class="dt-card__tools order-sm-3">
-              <a href="javascript:void(0)" class="dt-card__more">
-                <i class="icon icon-search-new icon-xl"></i>
-              </a>
-            </div>
-            <!-- /card tools -->
-
-            <!-- Menu -->
-            <ul class="nav nav-pills nav-pills-sm order-sm-2">
-              <li class="nav-item">
-                <a class="nav-link active" href="javascript:void(0)">All</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Bitcoin</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Ripple</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Litecoin</a>
-              </li>
-            </ul>
-            <!-- /menu -->
-
-          </div>
-          <!-- /card header -->
-
-          <!-- Card Body -->
-          <div class="dt-card__body">
-
-            <!-- Media List -->
-            <div class="media-list">
-              <!-- Media -->
-              <div class="media media-news">
-
-                <!-- Image -->
-                <img class="img-fluid rounded-xl" src="assets/default/assets/images/dashboard/bitcoin-cryptocurrency-trader.jpg"
-                     alt="Crypto Currency">
-                <!-- /image -->
-
-                <!-- Media Body -->
-                <div class="media-body">
-                  <h4 class="mb-2">10 things you must know before trading in cryptocurrency</h4>
-                  <p>
-                    Cras tincidunt sit amet massa at accumsan. Mauris tincidunt tincidunt est, et pulvinar
-                    felis pharetra in vestibulum sed.
-                  </p>
-                  <div class="d-flex flex-wrap">
-                    <p class="mb-0 text-light-gray flex-1 text-truncate">
-                      <i class="icon icon-tag-new icon-lg mr-2 align-top"></i>
-                      BTC, Crypto, Trading, Tips, Cryptocurrency
-                    </p>
-                    <a class="d-inline-block ml-auto" href="javascript:void(0)"><span>Ready Full Story</span><i
-                          class="icon icon-long-arrow-right icon-lg ml-2"></i></a>
-                  </div>
-                </div>
-                <!-- /media body -->
-
-              </div>
-              <!-- /media -->
-              <!-- Media -->
-              <div class="media media-news">
-
-                <!-- Image -->
-                <img class="img-fluid rounded-xl" src="assets/default/assets/images/dashboard/bitcoin-in-the-mousetrap.jpg"
-                     alt="Crypto Currency">
-                <!-- /image -->
-
-                <!-- Media Body -->
-                <div class="media-body">
-                  <h4 class="mb-2">Getting started with cryptocurrency - what is blockchain</h4>
-                  <p>
-                    Cras tincidunt sit amet massa at accumsan. Mauris tincidunt tincidunt est, et pulvinar
-                    felis pharetra in vestibulum sed.
-                  </p>
-                  <div class="d-flex flex-wrap">
-                    <p class="mb-0 text-light-gray flex-1 text-truncate">
-                      <i class="icon icon-tag-new icon-lg mr-2 align-top"></i>
-                      Blockchain, tutorial, Cryptocurrency
-                    </p>
-                    <a class="d-inline-block ml-auto" href="javascript:void(0)"><span>Ready Full Story</span><i
-                          class="icon icon-long-arrow-right icon-lg ml-2"></i></a>
-                  </div>
-                </div>
-                <!-- /media body -->
-
-              </div>
-              <!-- /media -->
-              <!-- Media -->
-              <div class="media media-news">
-
-                <!-- Image -->
-                <img class="img-fluid rounded-xl" src="assets/default/assets/images/dashboard/concept-of-blockchain.jpg"
-                     alt="Block Chain">
-                <!-- /image -->
-
-                <!-- Media Body -->
-                <div class="media-body">
-                  <h4 class="mb-2">Is cryptocurrency investment a trap or opportunity?</h4>
-                  <p>
-                    Cras tincidunt sit amet massa at accumsan. Mauris tincidunt tincidunt est, et pulvinar
-                    felis pharetra in vestibulum sed.
-                  </p>
-                  <div class="d-flex flex-wrap">
-                    <p class="mb-0 text-light-gray flex-1 text-truncate">
-                      <i class="icon icon-tag-new icon-lg mr-2 align-top"></i>
-                      Blockchain, tips, Cryptocurrency
-                    </p>
-                    <a class="d-inline-block ml-auto" href="javascript:void(0)"><span>Ready Full Story</span><i
-                          class="icon icon-long-arrow-right icon-lg ml-2"></i></a>
-                  </div>
-                </div>
-                <!-- /media body -->
-
-              </div>
-              <!-- /media -->
-            </div>
-            <!-- /media list -->
-
-          </div>
-          <!-- /card body -->
-
+      <div class="col-xl-2 col-sm-4">
+        <div class="dt-card dt-chart dt-card__full-height bg-warning align-items-center pt-5">
+          <img src="images/purchase.svg" alt="Purchase" width="30px;">
+          <h4 class="text-white mt-3 mb-0" id="purchase">{{ number_format($purchase, 2) }}</h4>
+          <h2 class="text-white mt-1">Purchase</h2>
         </div>
-        <!-- /card -->
-
       </div>
+
+      <div class="col-xl-2 col-sm-4">
+        <div class="dt-card dt-chart dt-card__full-height bg-success align-items-center pt-5">
+          <img src="images/profit.svg" alt="Profit" width="30px;">
+          <h4 class="text-white mt-3 mb-0" id="profit">{{ number_format($profit, 2) }}</h4>
+          <h2 class="text-white mt-1">Profit</h2>
+        </div>
+      </div>
+
+      <div class="col-xl-2 col-sm-4">
+        <div class="dt-card dt-chart dt-card__full-height bg-danger align-items-center pt-5">
+          <img src="images/expense.svg" alt="Expense" width="30px;">
+          <h4 class="text-white mt-3 mb-0" id="expense">{{ number_format($expense,2) }}</h4>
+          <h2 class="text-white mt-1">Expense</h2>
+        </div>
+      </div>
+
+      <div class="col-xl-2 col-sm-4">
+        <div class="dt-card dt-chart dt-card__full-height bg-dark align-items-center pt-5">
+          <img src="images/customer.svg" alt="Customer" width="30px;">
+          <h4 class="text-white mt-3 mb-0" id="customer">{{ number_format($customer, 2) }}</h4>
+          <h2 class="text-white mt-1">Customer</h2>
+        </div>
+      </div>
+
+      <div class="col-xl-2 col-sm-4">
+        <div class="dt-card dt-chart dt-card__full-height bg-info align-items-center pt-5">
+          <img src="images/supplier.svg" alt="Supplier" width="30px;">
+          <h4 class="text-white mt-3 mb-0" id="supplier">{{ number_format($supplier,2) }}</h4>
+          <h2 class="text-white mt-1">Supplier</h2>
+        </div>
+      </div>
+
       <!-- /grid item -->
 
     </div>
     <!-- /grid -->
+    <div class="row pt-5">
+      <!-- Start :: Cash Flow Graph -->
+      <div class="col-md-7">
+        <div class="card line-chart">
+          <div class="card-header d-flex align-items-center">
+            <h4>Cash Flow</h4>
+          </div>
+          <div class="card-body">
+            <canvas id="cashFlow" data-color="#038fde" data-color_rgba="rgba(3, 143, 222, 1)" data-received="{{ json_encode($payment_received) }}"
+            data-sent="{{ json_encode($payment_sent) }}" data-month="{{ json_encode($month) }}" data-label1="Payment Received" data-label2="Payment Sent"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- End :: Cash Flow Graph -->
+
+      <!-- Start :: Transaction Chart-->
+      <div class="col-md-5">
+        <div class="card doughnut-chart">
+          <div class="card-header d-flex align-items-center">
+            <h4>{{ date('F') }} {{ date('Y') }}</h4>
+          </div>
+          <div class="card-body">
+            <canvas id="transactionChart" data-color="#038fde" data-color_rgba="rgba(3, 143, 222, 1)" data-sale="{{ $sale }}"
+            data-purchase="{{ $purchase }}" data-expense="{{ $expense }}" data-label1="Purchase" data-label2="Sale" data-label3="Expense"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- End :: Transaction Chart-->
+    </div>
+
+    <!-- Start :: Bar Chart-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card bar-chart">
+          <div class="card-header d-flex align-items-center">
+            <h4>Yearly Report </h4>
+          </div>
+          <div class="card-body">
+            <canvas id="yearlyReportChart"  data-sale_chart_value="{{ json_encode( $yearly_sale_amount) }}"
+            data-purchase_chart_value="{{ json_encode($yearly_purchase_amount) }}"  data-label1="Purchase Amount" data-label2="Sale Amount"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End :: Bar Chart-->
 
   </div>
 @endsection
+@push('script')
+  <script src="{{ asset('js/chart.min.js') }}"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      $('.data-btn').on('click', function(){
+        $('.data-btn').removeClass('active');
+        $(this).addClass('active');
+        var start_date = $(this).data('start_date');
+        var end_date = $(this).data('end_date');
+
+       $.get("{{ url('dashboard-data') }}/"+start_date+'/'+end_date, function(data){
+          $('#sale').text(data.sale);
+          $('#purchase').text(data.purchase);
+          $('#profit').text(data.profit);
+          $('#expense').text(data.expense);
+          $('#customer').text(data.customer);
+          $('#supplier').text(data.supplier);
+       });
+
+      });
+
+      // Cash flow chart
+      var brandPrimary;
+      var brandPrimaryRgba;
+
+      var CASHFLOW = $('#cashFlow');
+
+      if(CASHFLOW.length > 0){
+        brandPrimary = CASHFLOW.data('color');
+        brandPrimaryRgba = CASHFLOW.data('color_rgba');
+        var received = CASHFLOW.data('received');
+        var sent = CASHFLOW.data('sent');
+        var month = CASHFLOW.data('month');
+        var label1 = CASHFLOW.data('label1');
+        var label2 = CASHFLOW.data('label2');
+
+        var cashFlow_chart = new Chart(CASHFLOW, {
+          type:'line',
+          data:{
+            labels:[month[0],month[1],month[2],month[3],month[4],month[5],month[6]],
+            datasets:[
+              {
+                label:label1,
+                fill:true,
+                lineTension:0.3,
+                backgroundColor: 'transparent',
+                borderColor: brandPrimary,
+                borderCapStyle: 'butt',
+                borderDash:[],
+                borderDashOffset:0.0,
+                borderJoinStyle:'miter',
+                borderWidth:3,
+                pointBorderColor: brandPrimary,
+                pointBackgroundColor:'#fff',
+                pointBorderWidth:5,
+                pointHoverRadius:5,
+                pointHoverBackgroundColor:brandPrimary,
+                pointHoverBorderColor:brandPrimaryRgba,
+                pointHoverBorderWidth:2,
+                pointRadius:1,
+                pointHitRadius:10,
+                data:[received[0],received[1],received[2],received[3],received[4],received[5],received[6]],
+                spanGaps:false
+              },
+              {
+                label:label2,
+                fill:true,
+                lineTension:0.3,
+                backgroundColor: 'transparent',
+                borderColor: '#f5222d',
+                borderCapStyle: 'butt',
+                borderDash:[],
+                borderDashOffset:0.0,
+                borderJoinStyle:'miter',
+                borderWidth:3,
+                pointBorderColor: 'rgba(245, 34, 45, 1)',
+                pointBackgroundColor:'#fff',
+                pointBorderWidth:5,
+                pointHoverRadius:5,
+                pointHoverBackgroundColor:'#f5222d',
+                pointHoverBorderColor:'rgba(245, 34, 45, 1)',
+                pointHoverBorderWidth:2,
+                pointRadius:1,
+                pointHitRadius:10,
+                data:[sent[0],sent[1],sent[2],sent[3],sent[4],sent[5],sent[6]],
+                spanGaps:false
+              }
+            ]
+          }
+        })
+      }
+
+      // Transaction chart
+
+      var TRANSACTIONCHART = $('#transactionChart');
+      if(TRANSACTIONCHART.length > 0)
+      {
+        brandPrimary = TRANSACTIONCHART.data('color');
+        brandPrimaryRgba = TRANSACTIONCHART.data('color_rgba');
+        var sale = TRANSACTIONCHART.data('sale');
+        var purchase = TRANSACTIONCHART.data('purchase');
+        var expense = TRANSACTIONCHART.data('expense');
+        var label1 = TRANSACTIONCHART.data('label1');
+        var label2 = TRANSACTIONCHART.data('label2');
+        var label3 = TRANSACTIONCHART.data('label3');
+
+        var transaction_chart = new Chart(TRANSACTIONCHART, {
+          type:'doughnut',
+          data:{
+            labels: [label1,label2,label3],
+            datasets: [
+              {
+                data:[purchase,sale,expense],
+                borderWidth:[1,1,1],
+                backgroundColor:[ brandPrimary,'#52c41a','#f5222d'],
+                hoverBackgroundColor:[
+                  brandPrimaryRgba,
+                  'rgba(82, 196, 26, 1)',
+                  'rgba(245, 34, 45, 1)'
+                ],
+                hoverBorderWidth:[4,4,4],
+                hoverBorderColor:[
+                  brandPrimaryRgba,
+                  'rgba(82, 196, 26, 1)',
+                  'rgba(245, 34, 45, 1)'
+                ]
+              }
+            ]
+          }
+        }) 
+      }
+
+      // Bar chart for yearly report
+
+      var YEARLYREPORTCHART = $('#yearlyReportChart');
+      if(YEARLYREPORTCHART.length > 0)
+      {
+        var yearly_sale_amount = YEARLYREPORTCHART.data('sale_chart_value');
+        var yearly_purchase_amount = YEARLYREPORTCHART.data('purchase_chart_value');
+        var label1 = YEARLYREPORTCHART.data('label1');
+        var label2 = YEARLYREPORTCHART.data('label2');
+
+        var yearly_report_chart = new Chart(YEARLYREPORTCHART, {
+          type: 'bar',
+          data:{
+            labels:["January","February","March","April","May","June","July","August","September","October","November","December"],
+            datasets:[
+              {
+                label: label1,
+                backgroundColor:[
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                  brandPrimaryRgba,
+                ],
+                borderColor:[
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                  brandPrimary,
+                ],
+                borderWidth:1,
+                data:[
+                  yearly_purchase_amount[0],
+                  yearly_purchase_amount[1],
+                  yearly_purchase_amount[2],
+                  yearly_purchase_amount[3],
+                  yearly_purchase_amount[4],
+                  yearly_purchase_amount[5],
+                  yearly_purchase_amount[6],
+                  yearly_purchase_amount[7],
+                  yearly_purchase_amount[8],
+                  yearly_purchase_amount[9],
+                  yearly_purchase_amount[10],
+                  yearly_purchase_amount[11], 
+                  0
+                ],
+              },
+              {
+              label:label2,
+              backgroundColor:[
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+                'rgba(82, 196, 26, 1)',
+              ],
+              borderColor:[
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+                '#52c41a',
+              ],
+              borderWidth:1,
+              data:[
+                yearly_sale_amount[0],
+                yearly_sale_amount[1],
+                yearly_sale_amount[2],
+                yearly_sale_amount[3],
+                yearly_sale_amount[4],
+                yearly_sale_amount[5],
+                yearly_sale_amount[6],
+                yearly_sale_amount[7],
+                yearly_sale_amount[8],
+                yearly_sale_amount[9],
+                yearly_sale_amount[10],
+                yearly_sale_amount[11], 0
+                ],
+              },
+            ]
+          }
+        })
+      }
+
+    });
+  </script>
+
+@endpush

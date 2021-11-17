@@ -6,6 +6,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\SettingController;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,10 @@ Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('unauthorized', [HomeController::class, 'unauthorized'])->name('unauthorized');
+    Route::get('dashboard-data/{start_date}/{end_date}', [HomeController::class, 'dashboardData']);
+    Route::get('my-profile', [MyProfileController::class, 'index'])->name('my.profile');
+    Route::post('update-profile', [MyProfileController::class, 'updateProfile'])->name('update.profile');
+    Route::post('update-password', [MyProfileController::class, 'updatePassword'])->name('update.password');
     
     // Menu Routes
     Route::get('menu', [MenuController::class, 'index']) -> name('menu');

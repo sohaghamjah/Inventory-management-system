@@ -9,5 +9,7 @@
     "Account": true,
     "Expense": true,
     "Sale": true,
-    "HRM": true
+    "HRM": true,
+    "Report": true,
+    "Stock": true
 }

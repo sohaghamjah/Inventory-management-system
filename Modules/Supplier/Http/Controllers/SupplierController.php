@@ -7,7 +7,7 @@ use Modules\Base\Http\Controllers\BaseController;
 use Modules\Supplier\Entities\Supplier;
 use Modules\Supplier\Http\Requests\SupplierFormRequest;
 
-class SupplierController extends BaseController
+class SupplierController extends BaseController 
 {
     public function __construct(Supplier $model)
     {

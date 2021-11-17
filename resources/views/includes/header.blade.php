@@ -439,10 +439,9 @@
                                      <span class="f-12">{{ Auth::user()->role->role_name }}</span>
                                  </span>
                              </div>
-                             <a class="dropdown-item" href="javascript:void(0)"> <i
+                             <a class="dropdown-item" href="{{ route('my.profile') }}"> <i
                                      class="icon icon-user-o icon-fw mr-2 mr-sm-1"></i>Account
-                             </a> <a class="dropdown-item" href="javascript:void(0)">
-                                 <i class="icon icon-setting icon-fw mr-2 mr-sm-1"></i>Setting </a>
+                             </a>
                              <a class="dropdown-item" href="{{ route('logout') }}"
                                  onclick="event.preventDefault(); document.getElementById('logout_form').submit()">
                                  <i class="icon icon-edit icon-fw mr-2 mr-sm-1"></i>Logout

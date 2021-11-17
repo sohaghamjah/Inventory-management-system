@@ -35,7 +35,7 @@ class SaleController extends BaseController
             $accounts  = Account::where('status',1)->get();
             return view('sale::index',compact('customers','accounts'));
         }else{
-            return $this->unauthorized_access_blocked();
+            return $this->unauthorizedAccessBlocked();
         }
     }
 
@@ -86,7 +86,7 @@ class SaleController extends BaseController
                     //     $action .= ' <a style="cursor: pointer" class="dropdown-item view_data" href="'.url("sale/details",$value->id).'" data-id="'.$value->id.'"><i class="fas fa-eye text-success"></i> View</a>';
                     // }
                     if(permission('sale-show')){
-                        $action .= ' <a style="cursor: pointer" class="dropdown-item invoice_data" data-name="'.$value->name.'" data-id="'.$value->id.'"><i class="fas fa-file text-warning"></i> Invoice</a>';
+                        $action .= '<a href="'.url('sale/details', $value->id).'" style="cursor: pointer" class="dropdown-item view_data"><i class="fas fa-file text-warning"></i> View</a>';
                     }
                     if(permission('sale-payment-add')){
                         if(($value->grand_total - $value->paid_amount) != 0){
@@ -144,7 +144,7 @@ class SaleController extends BaseController
             $accounts   = Account::where('status',1)->get();
             return view('sale::create',compact('customers','accounts','warehouses','taxes'));
         }else{
-            return $this->unauthorized_access_blocked();
+            return $this->unauthorizedAccessBlocked();
         }
     }
 
@@ -267,9 +267,23 @@ class SaleController extends BaseController
             ];
             return view('sale::edit',$data);
         }else{
-            return $this->unauthorized_access_blocked();
+            return $this->unauthorizedAccessBlocked();
         }
     }
+
+    public function details(int $id)
+    {
+        if(permission('sale-show')){
+            $this->setPageData('Sale Details','Sale Details','fas fa-eye');
+            $data = [
+                'sale'=> $this->model->with('sale_products','customer')->findOrFail($id),
+            ];
+            return view('sale::details',$data);
+        }else{
+            return $this->unauthorizedAccessBlocked();
+        }
+    }
+
 
 
 
@@ -392,7 +406,7 @@ class SaleController extends BaseController
             ];
             return view('sale::details',$data);
         }else{
-            return $this->unauthorized_access_blocked();
+            return $this->unauthorizedAccessBlocked();
         }
     }
 
