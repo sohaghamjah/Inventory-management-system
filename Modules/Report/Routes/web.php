@@ -1,9 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Modules\Report\Http\Controllers\CustomerReportController;
 use Modules\Report\Http\Controllers\ProductReportController;
 use Modules\Report\Http\Controllers\PurchaseReportController;
 use Modules\Report\Http\Controllers\SaleReportController;
 use Modules\Report\Http\Controllers\SummaryReportController;
+use Modules\Report\Http\Controllers\SupplierReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +38,12 @@ Route::middleware(['auth'])->group(function () {
     // Monthly purchase report routes
     Route::get('monthly-purchase', [PurchaseReportController::class, 'monthlyPurchase']);
     Route::post('monthly-purchase-report', [PurchaseReportController::class, 'monthlyPurchaseReport'])->name('monthly.purchase.report');
+
+    // Customer report
+    Route::get('customer-report', [CustomerReportController::class, 'index']);
+    Route::post('customer-report/datatable-data', [CustomerReportController::class, 'getDataTableData'])->name('customer.report.datatable.data');
+
+    // Supplier report
+    Route::get('supplier-report', [SupplierReportController::class, 'index']);
+    Route::post('supplier-report/datatable-data', [SupplierReportController::class, 'getDataTableData'])->name('supplier.report.datatable.data');
 });

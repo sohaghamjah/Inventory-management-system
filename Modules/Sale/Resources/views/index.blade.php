@@ -3,7 +3,7 @@
     {{ $page_title }}
 @endsection
 @push('stylesheet')
-    <script src="{{ asset('assets/default/assets/css/bootstrap-datetimepicker.min.css') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/default/assets/css/bootstrap-datetimepicker.min.css') }}">
 @endpush
 @section('content')
 <div class="dt-content">

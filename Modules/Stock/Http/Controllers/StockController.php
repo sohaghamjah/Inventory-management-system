@@ -4,11 +4,11 @@ namespace Modules\Stock\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Modules\Base\Http\Controllers\BaseController;
 use Modules\Product\Entities\WarehouseProduct;
 use Modules\System\Entities\Warehouse;
 
-class StockController extends Controller
+class StockController extends BaseController
 {
     public function __construct(WarehouseProduct $model)
     {
@@ -20,10 +20,10 @@ class StockController extends Controller
      */
     public function index()
     {
-        if(permission('atock-access')){
+        if(permission('stock-access')){
             $this -> setPageData('Manage Stock', 'Manage Stock', 'fab fa-boxes');
             $data = [
-                'warehouse' => Warehouse::toBase()->pluch('name','id')
+                'warehouses' => Warehouse::toBase()->pluck('name','id')
             ];
             return view('stock::index', $data);
         }else{
@@ -32,7 +32,7 @@ class StockController extends Controller
     }
 
     public function getDataTableData(Request $request){
-        if(permission('atock-access')){
+        if(permission('stock-access')){
              if($request -> ajax()){
                              // Filter datatable
             if(!empty($request->name)){

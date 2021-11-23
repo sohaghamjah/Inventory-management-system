@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Customer\Entities;
+namespace Modules\Customer\Entities; 
 
 use Modules\Base\Entities\BaseModel;
 use Modules\System\Entities\CustomerGroup;

@@ -427,7 +427,7 @@
                                  class="dt-avatar-wrapper flex-nowrap p-6 mt--5 bg-gradient-purple text-white rounded-top">
 
                                  @if (Auth::user()->avatar)
-                                     <img class="dt-avatar" src="storage/{{ USER_AVATAR_PATH.Auth::user()->avatar }}"
+                                     <img class="dt-avatar" src="{{ asset('storage/') }}/{{ USER_AVATAR_PATH.Auth::user()->avatar }}"
                                  alt="{{ Auth::user()->name }}">
                                  @else
                                      <img class="dt-avatar" src="{{ asset('images') }}/{{ Auth::user()->gender == 1 ? 'male-persion' : 'female-persion' }}.jpg" alt="{{ Auth::user()->name }}">

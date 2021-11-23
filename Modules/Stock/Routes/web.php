@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use Modules\Stock\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +13,10 @@
 |
 */
 
-Route::prefix('stock')->group(function() {
-    Route::get('/', 'StockController@index');
+Route::middleware(['auth'])->group(function () {
+    // Menu Routes
+    Route::get('stock', [StockController::class, 'index']) -> name('stock');
+    Route::group(['prefix' => 'stock', 'as' => 'stock.'], function(){
+        Route::post('datatable-data', [StockController::class, 'getDataTableData']) ->name('datatable.data');
+    });
 });
