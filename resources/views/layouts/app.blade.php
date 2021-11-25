@@ -119,6 +119,14 @@
     let _token = '{!! csrf_token() !!}'
 </script>
 @stack('script')
+<script>
+   // Flash message
+   $(document).ready(function ($) {
+        @if (session('success'))
+            notification('success', "{{ session('success') }}");
+        @endif
+    });
+</script>
 </body>
 
 <!-- Mirrored from wieldy-html.g-axon.work/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Aug 2020 08:14:49 GMT -->

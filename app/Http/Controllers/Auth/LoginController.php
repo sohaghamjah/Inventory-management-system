@@ -204,6 +204,7 @@ class LoginController extends Controller
             }
 
         }
+        session()->flash('success', 'Congrats Your are loged in!');
     }
 
     /**
