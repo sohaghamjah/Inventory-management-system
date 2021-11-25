@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Modules\Report\Http\Controllers\CustomerReportController;
+use Modules\Report\Http\Controllers\ProductQuantityALertController;
 use Modules\Report\Http\Controllers\ProductReportController;
 use Modules\Report\Http\Controllers\PurchaseReportController;
 use Modules\Report\Http\Controllers\SaleReportController;
@@ -46,4 +47,8 @@ Route::middleware(['auth'])->group(function () {
     // Supplier report
     Route::get('supplier-report', [SupplierReportController::class, 'index']);
     Route::post('supplier-report/datatable-data', [SupplierReportController::class, 'getDataTableData'])->name('supplier.report.datatable.data');
+
+    // Supplier report
+    Route::get('product-qunatity-alert', [ProductQuantityALertController::class, 'index']);
+    Route::post('product-qunatity-alert/datatable-data', [ProductQuantityALertController::class, 'getDataTableData'])->name('product.quantity.alert.datatable.data');
 });
